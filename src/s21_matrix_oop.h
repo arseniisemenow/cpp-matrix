@@ -38,15 +38,15 @@ public:
 
     void SubMatrix(const S21Matrix &other);
 
-    bool EqMatrix(const S21Matrix &other) const;
+    [[nodiscard]] bool EqMatrix(const S21Matrix &other) const;
     void MulNumber(const double number);
     void MulMatrix(const S21Matrix& other);
 
-    double Determinant() const;
+    [[nodiscard]] double Determinant() const;
 
-    S21Matrix Transpose();
+    S21Matrix Transpose() const;
 
-    S21Matrix CalcComplements();
+    S21Matrix CalcComplements() const;
 
     S21Matrix InverseMatrix();
 
@@ -99,7 +99,7 @@ private:
                                                      int colIndex, OperationType operationType);
 
     void PerformMatrixMulOperation(const double number);
-    bool PerformComparison(const S21Matrix& other) const;
+    [[nodiscard]]bool PerformComparison(const S21Matrix& other) const;
 
     void PerformMatricesMulOperation(const S21Matrix& other);
 
@@ -109,9 +109,19 @@ private:
 
     void partialPivotingInGaussElimination(S21Matrix& temp, int pivotIndex, int *pSwapCount) const;
 
-    double GetSignBySwapCount(int swapCount) const;
+    [[nodiscard]] double GetSignBySwapCount(int swapCount) const;
 
     void SwapRows(double **matrix, int rowIndex1, int rowIndex2, int size) const;
+
+    void FillMinorMatrix(double **minorMatrix, double **originalMatrix, int skipRow, int skipColumn, int minorSize) const;
+
+    double Minor(int row, int column) const;
+
+    double GetComplementSign(int i, int j) const;
+
+    S21Matrix HandleFirstGradeMatrix() const;
+
+    double GetComplementSign(int i, int j);
 };
 
 #endif // S21_MATRIX_OOP_H_

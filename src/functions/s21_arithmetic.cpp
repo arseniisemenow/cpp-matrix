@@ -14,7 +14,6 @@ void S21Matrix::PerformSumAndSubOperations(const S21Matrix& other, OperationType
     }
 }
 
-
 void S21Matrix::CalculateAndAssignSumAndSubValue(const S21Matrix& other, int rowIndex,
                                                  int colIndex, OperationType operationType) {
     double value = 0;
