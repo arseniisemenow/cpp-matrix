@@ -54,3 +54,6 @@ dkms.conf
 .DS_Store
 .DS_Store?
 ._*
+.idea
+cmake-build-debug
+CMakeLists.txt
