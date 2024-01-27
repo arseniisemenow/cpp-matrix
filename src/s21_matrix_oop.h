@@ -44,9 +44,9 @@ public:
 
     [[nodiscard]] double Determinant() const;
 
-    S21Matrix Transpose() const;
+    [[nodiscard]] S21Matrix Transpose() const;
 
-    S21Matrix CalcComplements() const;
+    [[nodiscard]] S21Matrix CalcComplements() const;
 
     S21Matrix InverseMatrix();
 
@@ -64,12 +64,12 @@ public:
 
     S21Matrix &operator*=(const S21Matrix &other);
 
-    S21Matrix &operator+=(const double number);
+    S21Matrix &operator*=(const double number);
 
     double operator()(int i, int j) const;  // WHAT is this for?
     double &operator()(int i, int j);       // WHAT is this for?
 
-    void PrintMatrix();  // TODO const noexcept?
+    void PrintMatrix() const noexcept;  // TODO const noexcept?
 
 private:
     int rows_{};
@@ -113,7 +113,7 @@ private:
 
     void SwapRows(double **matrix, int rowIndex1, int rowIndex2, int size) const;
 
-    void FillMinorMatrix(double **minorMatrix, double **originalMatrix, int skipRow, int skipColumn, int minorSize) const;
+    void FillMinorMatrix(double **minorMatrix, int skipRow, int skipColumn, int minorSize) const;
 
     double Minor(int row, int column) const;
 
@@ -121,9 +121,9 @@ private:
 
     S21Matrix HandleFirstGradeMatrix() const;
 
-    double GetComplementSign(int i, int j);
-
     S21Matrix CalculateInverseMatrix(S21Matrix &transposedComplementMatrix, double det) const;
+
+    S21Matrix GetFirstOrderMatrix();
 };
 
 #endif // S21_MATRIX_OOP_H_

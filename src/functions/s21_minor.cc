@@ -1,7 +1,6 @@
 #include "../s21_matrix_oop.h"
 
-void S21Matrix::FillMinorMatrix(double **minorMatrix, double **originalMatrix,
-                                int skipRow, int skipColumn, int minorSize) const {
+void S21Matrix::FillMinorMatrix(double **minorMatrix, int skipRow, int skipColumn, int minorSize) const {
     int rowIndexMinor, columnIndexMinor, rowIndexOrig, columnIndexOrig;
 
     for (rowIndexMinor = 0, rowIndexOrig = 0; rowIndexMinor < minorSize;
@@ -15,7 +14,7 @@ void S21Matrix::FillMinorMatrix(double **minorMatrix, double **originalMatrix,
                 columnIndexOrig++;
             }
             minorMatrix[rowIndexMinor][columnIndexMinor] =
-                    originalMatrix[rowIndexOrig][columnIndexOrig];
+                    matrix_[rowIndexOrig][columnIndexOrig];
         }
     }
 }
@@ -24,7 +23,7 @@ double S21Matrix::Minor(int row, int column) const {
     //TODO throw errors
     S21Matrix temp = S21Matrix(rows_ - 1, cols_ - 1);
 
-    FillMinorMatrix(temp.matrix_, matrix_, row, column, rows_ - 1);
+    FillMinorMatrix(temp.matrix_, row, column, rows_ - 1);
     double result = temp.Determinant();
 
     return result;
