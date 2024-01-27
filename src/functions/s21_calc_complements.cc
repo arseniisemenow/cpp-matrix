@@ -1,5 +1,6 @@
 #include "../s21_matrix_oop.h"
 
+namespace s21{
 S21Matrix S21Matrix::CalcComplements() const {
     //TODO handle errors
     if (rows_ == cols_ == 1){
@@ -27,4 +28,4 @@ S21Matrix S21Matrix::HandleFirstGradeMatrix() const {
 }
 double S21Matrix::GetComplementSign(int i, int j )const {
     return ((i + j) % 2 == 1) ? -1.0 : 1.0;
-}
+}}

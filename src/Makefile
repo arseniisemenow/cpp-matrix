@@ -1,50 +1,47 @@
 CC              := gcc
-CFLAGS 			:= -Wall -Werror -Wextra -std=c11
-FUNC_DIR        := functions
-FUNC_COMMON_DIR := ${FUNC_DIR}/common
-FUNC_TEST_DIR   := tests/
-OBJ_DIR         := ./
-BUILD_DIR		:= ../build/
-LIB_HEADER      := s21_decimal.h
-GCOV_FLAGS      := -fprofile-arcs -ftest-coverage
-TEST_DIR_BUILD	:= tests/build/
-LIB_STATIC      := s21_matrix.a
+CXXFLAGS 		:= -std=c++17 #-Wall -Werror -Wextra -Wshadow -Wconversion
+CXXCOV 			:= --coverage
+FUNC_DIR        := ./functions
+FUNC_TEST_DIR   := ../tests
+OBJ_DIR         := ./functions
+LIB_STATIC      := s21_matrix_oop.a
+CXX 			:= g++
 
-ifeq ($(shell head -n 1 /etc/lsb-release), DISTRIB_ID=Ubuntu)
-UBUNTU_FLAGS      	:= -lrt -lsubunit $(shell pkg-config --cflags check) $(shell pkg-config --libs check)
-endif
+TEST_SOURCES = ${FUNC_TEST_DIR}/tests.cc
 
-TEST_FLAGS      := -lcheck -lm -lpthread $(UBUNTU_FLAGS)
-
-
-
-FUNC_SRCS       := 	$(addprefix $(FUNC_COMMON_DIR)/, s21_common.c ) \
-					$(addprefix $(FUNC_DIR)/, s21_calc_complements.c \
-					s21_create_matrix.c \
-                    s21_determinant.c \
-                    s21_eq_matrix.c \
-                    s21_inverse_matrix.c \
-                    s21_minor.c \
-                    s21_mult_matrix.c \
-                    s21_mult_number.c \
-                    s21_remove_matrix.c \
-                    s21_sub_matrix.c \
-                    s21_sum_matrix.c \
-                    s21_transpose.c)
+FUNC_SRCS       := 	$(addprefix $(FUNC_DIR)/, \
+					s21_calc_complements.cc \
+					s21_create_matrix.cc \
+                    s21_determinant.cc \
+                    s21_eq_matrix.cc \
+                    s21_inverse_matrix.cc \
+                    s21_minor.cc \
+                    s21_mult_matrix.cc \
+                    s21_mult_number.cc \
+                    s21_remove_matrix.cc \
+                    s21_sub_matrix.cc \
+                    s21_sum_matrix.cc \
+                    s21_transpose.cc)
 
 FUNC_OBJS_WITHOUT_OBJECT_DIRNAME = $(FUNC_SRCS:.c=.o)
 FUNC_OBJS = $(subst $(FUNC_DIR), $(OBJ_DIR), $(FUNC_OBJS_WITHOUT_OBJECT_DIRNAME))
 
 $(LIB_STATIC):$(FUNC_SRCS)
-	mkdir tests/build
-	$(CC) $(CFLAGS) -c $(FUNC_SRCS)
-	ar -rcs $@ *.o
-	make clean_obj
+	$(CXX) $(CXXFLAGS) -c $(FUNC_SRCS)
+	ar rcs s21_matrix_oop.a $(FUNC_OBJS)
 
 all: rebuild
 
 build:
 	make $(LIB_STATIC)
+
+test:
+ifeq ($(OS), Linux)
+	$(CXX) $(CXXFLAGS) $(TEST_SOURCES) $(LIB_SOURCES) -o test -lgtest
+else
+	$(CXX) $(CXXFLAGS) $(TEST_SOURCES) $(LIB_SOURCES) -o test -lgtest
+endif
+	./test
 
 rebuild: clean build
 
@@ -55,7 +52,6 @@ check:
 clang_format:
 	clang-format -i -style=Google  *.cpp *.h ./*/*.cpp ./*/*.h ./*/*/*.cpp ./*/*/*.h
 
-
 gcov_report:
 	mkdir report
 	gcc tests/main_test.c $(FUNC_SRCS) $(CFLAGS) $(TEST_FLAGS) $(GCOV_FLAGS) -o ./$@.out
@@ -64,9 +60,9 @@ gcov_report:
 	genhtml -o report/ test.info
 	open ./report/index.html
 
-test:
-	gcc tests/main_test.c $(LIB_STATIC) $(CFLAGS) $(TEST_FLAGS)  -o ./test.out
-	./test.out
+#test:
+#	gcc tests/main_test.c $(LIB_STATIC) $(CFLAGS) $(TEST_FLAGS)  -o ./test.out
+#	./test.out
 
 install_brew:
 	cd ~

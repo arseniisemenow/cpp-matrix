@@ -1,6 +1,7 @@
 #include "../s21_matrix_oop.h"
 
 
+namespace s21{
 void S21Matrix::MulMatrix(const S21Matrix &other){
     if (cols_ != other.rows_){
         throw std::invalid_argument("The multiplication can't be completed");
@@ -22,4 +23,4 @@ void S21Matrix::PerformMatricesMulOperation(const S21Matrix& other) {
     }
   }
   *this = temp;
-}
+}}

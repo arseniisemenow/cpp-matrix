@@ -1,5 +1,6 @@
 #include "../s21_matrix_oop.h"
 
+namespace s21{
 void S21Matrix::MulNumber(const double number) {
     PerformMatrixMulOperation(number);
 }
@@ -10,4 +11,4 @@ void S21Matrix::PerformMatrixMulOperation(const double number) {
       matrix_[rowIndex][colIndex] *= number;
     }
   }
-}
+}}

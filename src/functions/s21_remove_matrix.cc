@@ -1,5 +1,6 @@
 #include "../s21_matrix_oop.h"
 
+namespace s21{
 S21Matrix::~S21Matrix() {
     DestroyMatrix();
     rows_ = 0;
@@ -17,4 +18,4 @@ void S21Matrix::DestroyMatrix(){
         delete matrix_;
         matrix_ = nullptr;
     }
-}
+}}

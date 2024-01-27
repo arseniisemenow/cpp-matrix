@@ -1,5 +1,6 @@
 #include "../s21_matrix_oop.h"
 
+namespace s21{
 void S21Matrix::ResizeMatrix(int newRows, int newCols) {
     if (newRows < 0 || newCols < 0) {
         throw std::length_error("Number of rows or columns can't be negative.\n");
@@ -49,4 +50,5 @@ int S21Matrix::GetCols() const noexcept {
 
 double S21Matrix::GetElementInMatrix(int rowIndex, int colIndex) const noexcept {
     return matrix_[rowIndex][colIndex];
+}
 }

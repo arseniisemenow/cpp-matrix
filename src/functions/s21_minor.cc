@@ -1,5 +1,6 @@
 #include "../s21_matrix_oop.h"
 
+namespace s21{
 void S21Matrix::FillMinorMatrix(double **minorMatrix, int skipRow, int skipColumn, int minorSize) const {
     int rowIndexMinor, columnIndexMinor, rowIndexOrig, columnIndexOrig;
 
@@ -27,4 +28,4 @@ double S21Matrix::Minor(int row, int column) const {
     double result = temp.Determinant();
 
     return result;
-}
+}}

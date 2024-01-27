@@ -1,5 +1,6 @@
 #include "../s21_matrix_oop.h"
 
+namespace s21{
 void S21Matrix::PrintMatrix() const noexcept {
     for (int i = 0; i <= rows_ - 1; ++i) {
         std::cout  << matrix_[i][0];
@@ -8,4 +9,4 @@ void S21Matrix::PrintMatrix() const noexcept {
         }
         std::cout << std::endl;
     }
-}
+}}

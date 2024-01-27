@@ -1,5 +1,6 @@
 #include "../s21_matrix_oop.h"
 
+namespace s21{
 bool S21Matrix::EqMatrix(const S21Matrix&other) const  {
     return PerformComparison(other);
 }
@@ -19,4 +20,4 @@ bool S21Matrix::PerformComparison(const S21Matrix& other) const {
         }
     }
     return comparisonStatus;
-}
+}}
