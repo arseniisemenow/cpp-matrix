@@ -1,6 +1,5 @@
 #include "../s21_matrix_oop.h"
 
-
 void S21Matrix::CopyMatrixData(const S21Matrix& other) noexcept{
     cols_ = other.cols_;
     rows_ = other.rows_;

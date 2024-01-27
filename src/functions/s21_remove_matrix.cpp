@@ -11,6 +11,7 @@ void S21Matrix::DestroyMatrix(){
         for (int i = 0; i < rows_; ++i) {
             if (matrix_[i] != nullptr){
                 delete[] matrix_[i];
+                matrix_[i] = nullptr;
             }
         }
         delete matrix_;

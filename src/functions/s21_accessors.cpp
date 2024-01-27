@@ -18,16 +18,18 @@ void S21Matrix::ResizeMatrix(int newRows, int newCols) {
 
         DestroyMatrix();
 
-        AllocateMemoryForMatrix(temp.rows_, temp.cols_);
+        AllocateMemoryForMatrix();
         CopyMatrixData(temp);
     }
 }
 
 void S21Matrix::SetRows(int number) {
+    cols_ = number;
     ResizeMatrix(number, cols_);
 }
 
 void S21Matrix::SetCols(int number) {
+    rows_ = number;
     ResizeMatrix(rows_, number);
 }
 
