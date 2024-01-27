@@ -122,6 +122,8 @@ private:
     S21Matrix HandleFirstGradeMatrix() const;
 
     double GetComplementSign(int i, int j);
+
+    S21Matrix CalculateInverseMatrix(S21Matrix &transposedComplementMatrix, double det) const;
 };
 
 #endif // S21_MATRIX_OOP_H_

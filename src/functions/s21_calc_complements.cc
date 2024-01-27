@@ -1,6 +1,7 @@
 #include "../s21_matrix_oop.h"
 
 S21Matrix S21Matrix::CalcComplements() const {
+    //TODO handle errors
     if (rows_ == cols_ == 1){
         return HandleFirstGradeMatrix();
     }
