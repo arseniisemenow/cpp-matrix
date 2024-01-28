@@ -22,7 +22,7 @@ namespace s21 {
 
         double sign = GetSignBySwapCount(swapCount);
 
-        if (!isnan(tempResult)) {
+        if (!std::isnan(tempResult)) {
             result = sign * tempResult;
         }
 
