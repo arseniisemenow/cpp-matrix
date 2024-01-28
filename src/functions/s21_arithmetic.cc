@@ -2,9 +2,6 @@
 
 
 namespace s21 {
-    void S21Matrix::ArithmeticShellForSumAndSub(const S21Matrix &other, OperationType operationType) {
-        PerformSumAndSubOperations(other, operationType);
-    }
 
     void S21Matrix::PerformSumAndSubOperations(const S21Matrix &other, OperationType operationType) {
         for (int rowIndex = 0; rowIndex < rows_; ++rowIndex) {
