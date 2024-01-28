@@ -17,7 +17,6 @@ namespace s21{
 
         S21Matrix(int rows, int cols);  // TODO should I use explicit here?
         S21Matrix(const S21Matrix &other);
-
         S21Matrix(S21Matrix &&other) noexcept;
 
         ~S21Matrix();
@@ -51,6 +50,8 @@ namespace s21{
         S21Matrix InverseMatrix();
 
         S21Matrix &operator=(const S21Matrix &other);
+        S21Matrix &operator=(S21Matrix && other) noexcept;
+
 
         S21Matrix operator+(const S21Matrix &other);
 

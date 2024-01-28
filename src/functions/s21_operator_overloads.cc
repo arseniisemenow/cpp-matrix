@@ -2,7 +2,8 @@
 
 namespace s21 {
     S21Matrix &S21Matrix::operator=(const S21Matrix &other) {
-        if (*this == other) {
+        std::cerr << "copy\n";
+        if (this == &other) {
             return *this;
         }
 
@@ -11,6 +12,19 @@ namespace s21 {
         cols_ = other.cols_;
         AllocateMemoryForMatrix();
         CopyMatrixData(other);
+        return *this;
+    }
+
+    S21Matrix &S21Matrix::operator=(S21Matrix && other) noexcept
+    {
+        std::cerr << "move\n";
+        if (this == &other) {
+            return *this;
+        }
+        DestroyMatrix();
+        rows_ = std::exchange(other.rows_, 0);
+        cols_ = std::exchange(other.cols_, 0);
+        matrix_ = std::exchange(other.matrix_, nullptr);
         return *this;
     }
 
@@ -72,6 +86,12 @@ namespace s21 {
     double &S21Matrix::operator()(int i, int j) {
         CheckRowAndCols(i, j);
         return matrix_[i][j];
+    }
+
+    S21Matrix::S21Matrix(S21Matrix &&other) noexcept {
+        rows_ = std::exchange(other.rows_, 0);
+        cols_ = std::exchange(other.cols_, 0);
+        matrix_ = std::exchange(other.matrix_, nullptr);
     }
 
 

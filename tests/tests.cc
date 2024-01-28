@@ -63,9 +63,9 @@ namespace s21
         {
             for (int j{ 0 }; j < matrix.GetCols(); ++j)
             {
-                std::cout << matrix(i, j) << ' ';
+                std::cerr << matrix(i, j) << ' ';
             }
-            std::cout << '\n';
+            std::cerr << '\n';
         }
     }
 
@@ -302,12 +302,22 @@ namespace s21
         ASSERT_FALSE(matrix2x3 == matrix3x3);
     }
 
-    TEST_F(S21MatrixTest, OperatorAssignmentTest)
+    TEST_F(S21MatrixTest, OperatorAssignmentTest1)
     {
         S21Matrix matrix{};
         matrix = matrix3x3;
         ASSERT_EQ(matrix, matrix3x3);
+    }
+    TEST_F(S21MatrixTest, OperatorAssignmentTest2)
+    {
+        S21Matrix matrix{};
+        matrix = matrix3x3;
+        ASSERT_EQ(matrix, matrix3x3);
+        matrix3x3 = matrix3x3;
+        ASSERT_EQ(matrix3x3, matrix3x3);
+    }
 
+    TEST_F(S21MatrixTest, OperatorAssignmentTest3){
         s21::S21Matrix other{ 3, 3 };
         other(0, 0) = 30;
         other(0, 1) = 36;
@@ -323,9 +333,6 @@ namespace s21
 
         matrix3x3 = other;
         ASSERT_EQ(matrix3x3, other);
-
-        matrix3x3 = matrix3x3;
-        ASSERT_EQ(matrix3x3, matrix3x3);
     }
 
     TEST_F(S21MatrixTest, OperatorPlusEqualsTest)

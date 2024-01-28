@@ -26,12 +26,4 @@ namespace s21{
             matrix_[i] = new double[cols_]();
         }
     }
-
-
-    S21Matrix::S21Matrix(S21Matrix && other) noexcept
-    {
-        rows_ = std::exchange(other.rows_, 0);
-        cols_ = std::exchange(other.cols_, 0);
-        matrix_ = std::exchange(other.matrix_, nullptr);
-    }
 }
