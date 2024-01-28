@@ -56,10 +56,10 @@ namespace s21{
 
         S21Matrix &operator-(const S21Matrix &other);
 
-        S21Matrix operator*(const S21Matrix &other);
-        S21Matrix operator*(const double number) const;
+        [[nodiscard]]S21Matrix operator*(const S21Matrix &other);
+        [[nodiscard]]S21Matrix operator*(const double number) const;
 
-        bool operator==(const S21Matrix &other) const;
+        [[nodiscard]]bool operator==(const S21Matrix &other) const;
         S21Matrix &operator+=(const S21Matrix &other);
 
         S21Matrix &operator-=(const S21Matrix &other);
@@ -67,10 +67,10 @@ namespace s21{
         S21Matrix &operator*=(const S21Matrix &other);
         S21Matrix &operator*=(const double number);
 
-        double operator()(int i, int j) const;  // WHAT is this for?
-        double &operator()(int i, int j);       // WHAT is this for?
+        [[nodiscard]]double operator()(int i, int j) const;
+        double &operator()(int i, int j);
 
-        void PrintMatrix() const noexcept;  // TODO const noexcept?
+        void PrintMatrix() const noexcept;
 
     private:
         int rows_{};
@@ -124,7 +124,7 @@ namespace s21{
 
         S21Matrix CalculateInverseMatrix(S21Matrix &transposedComplementMatrix, double det) const;
 
-        S21Matrix GetFirstOrderMatrix();
+        S21Matrix GetInverseOfFirstOrderMatrix();
     };
 }
 

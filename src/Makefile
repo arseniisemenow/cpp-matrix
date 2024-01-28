@@ -3,49 +3,41 @@ CXXFLAGS 		:= -std=c++17 #-Wall -Werror -Wextra -Wshadow -Wconversion
 CXXCOV 			:= --coverage
 FUNC_DIR        := ./functions
 FUNC_TEST_DIR   := ../tests
-OBJ_DIR         := ./temp_obj
+OBJ_DIR         := temp_obj
 LIB_STATIC      := s21_matrix_oop.a
 CXX 			:= g++
 
 TEST_SOURCES = ${FUNC_TEST_DIR}/tests.cc
 
-FUNC_SRCS       := 	$(addprefix $(FUNC_DIR)/, \
-					s21_calc_complements.cc \
-					s21_create_matrix.cc \
-                    s21_determinant.cc \
-                    s21_eq_matrix.cc \
-                    s21_inverse_matrix.cc \
-                    s21_minor.cc \
-                    s21_mult_matrix.cc \
-                    s21_mult_number.cc \
-                    s21_remove_matrix.cc \
-                    s21_sub_matrix.cc \
-                    s21_sum_matrix.cc \
-                    s21_transpose.cc)
+FUNC_SRCS := $(wildcard $(FUNC_DIR)/*.cc)
 
 FUNC_OBJS_WITHOUT_OBJECT_DIRNAME = $(FUNC_SRCS:.c=.o)
-FUNC_OBJS = $(addprefix $(OBJ_DIR)/, $(notdir $(FUNC_OBJS_WITHOUT_OBJECT_DIRNAME)))
 
-$(LIB_STATIC): $(FUNC_SRCS)
-	ar rcs s21_matrix_oop.a $^
+FUNC_OBJS := $(patsubst $(FUNC_DIR)/%.cc,$(OBJ_DIR)/%.o,$(FUNC_SRCS))
+
+$(LIB_STATIC): ${FUNC_OBJS}
+	ar rcs $@ $^
+	rm -rf ${OBJ_DIR}
+
 
 all: rebuild
 
 build:
 	make $(LIB_STATIC)
 
+rebuild: clean build
+
 ${OBJ_DIR}/%.o: ${FUNC_DIR}/%.cc
-	{CXX} ${CXXFLAGS} -c $< -o $@
+	-@mkdir  ${OBJ_DIR}
+	${CXX} ${CXXFLAGS} -c $< -o $@
 
 test:
 ifeq ($(OS), Linux)
-	$(CXX) $(CXXFLAGS) $(TEST_SOURCES) $(LIB_SOURCES) -o test -lgtest
+	$(CXX) $(CXXFLAGS) $(TEST_SOURCES) $(LIB_STATIC) -o test -lgtest
 else
-	$(CXX) $(CXXFLAGS) $(TEST_SOURCES) $(LIB_SOURCES) -o test -lgtest
+	$(CXX) $(CXXFLAGS) $(TEST_SOURCES) $(LIB_STATIC) -o test -lgtest
 endif
 	./test
-
-rebuild: clean build
 
 cppcheck_check:
 	cppcheck --enable=all --suppress=missingIncludeSystem *.c *.h ./*/*.c ./*/*.h ./*/*/*.c ./*/*/*.h
@@ -61,10 +53,6 @@ gcov_report:
 	lcov -t "test" -o test.info -c -d .
 	genhtml -o report/ test.info
 	open ./report/index.html
-
-#test:
-#	gcc tests/main_test.c $(LIB_STATIC) $(CFLAGS) $(TEST_FLAGS)  -o ./test.out
-#	./test.out
 
 install_brew:
 	cd ~
@@ -97,9 +85,6 @@ clean_silent:
 	rm -rf ../*/*/*/*.info
 	rm -rf ../*/*/*/*.a
 	rm -rf ../*/*/*/*.g*
-	rm -rf ./object_files
-	rm -rf ./tests/build
-	rm -rf ./report
 	rm -rf ./*.log
 
 dev_%:
