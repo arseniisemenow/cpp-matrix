@@ -411,21 +411,48 @@ namespace s21
         ASSERT_EQ(matrix1x1.GetRows(), 1);
     }
 
-    TEST_F(S21MatrixTest, MutatorsTest)
+    TEST_F(S21MatrixTest, MutatorsTest1)
     {
         matrix3x3.SetRows(10);
         ASSERT_EQ(matrix3x3.GetRows(), 10);
-        matrix3x3.SetRows(10);
-        ASSERT_EQ(matrix3x3.GetRows(), 10);
-        ASSERT_EQ(matrix3x3(7, 0), 0);
+    }
 
-        matrix3x3.SetCols(1);
-        ASSERT_EQ(matrix3x3.GetCols(), 1);
+
+    TEST_F(S21MatrixTest, MutatorsTest2)
+    {
+        int newSize = 10;
+        matrix3x3.SetRows(newSize);
+        matrix3x3.SetCols(newSize);
+        ASSERT_EQ(matrix3x3.GetRows(), newSize);
+        ASSERT_EQ(matrix3x3(newSize - 1, newSize - 1), 0);
+    }
+
+    TEST_F(S21MatrixTest, MutatorsTest3)
+    {
         matrix3x3.SetCols(1);
         ASSERT_EQ(matrix3x3.GetCols(), 1);
         ASSERT_EQ(matrix3x3(0, 0), 1);
+    }
+    TEST_F(S21MatrixTest, MutatorsTest4)
+    {
+        matrix3x3.SetCols(1);
+        matrix3x3.SetRows(1);
+        ASSERT_EQ(matrix3x3.GetRows(), 1);
+        ASSERT_EQ(matrix3x3.GetCols(), 1);
+        ASSERT_EQ(matrix3x3(0, 0), 1);
+    }
+    TEST_F(S21MatrixTest, MutatorsTest5)
+    {
+        matrix3x3.SetCols(1);
+        matrix3x3.SetRows(1);
+        ASSERT_EQ(matrix3x3.GetRows(), 1);
+        ASSERT_EQ(matrix3x3.GetCols(), 1);
+        ASSERT_EQ(matrix3x3(0, 0), 1);
 
-        EXPECT_THROW([[maybe_unused]] auto result{ matrix3x3(5, 3) }, std::out_of_range);
+        EXPECT_THROW(double result{ matrix3x3(5, 3) }, std::out_of_range);
+    }
+    TEST_F(S21MatrixTest, MutatorsTest6)
+    {
         EXPECT_THROW(matrix3x3.SetRows(-5), std::out_of_range);
         EXPECT_THROW(matrix3x3.SetCols(-5), std::out_of_range);
     }

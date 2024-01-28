@@ -2,12 +2,8 @@
 
 namespace s21 {
     double S21Matrix::Determinant() const {
-        if (rows_ != cols_) {
-            throw std::invalid_argument("Can't get determinant of non-square matrix");
-        }
-        if (rows_ <= 0 || cols_ <= 0) {
-            throw std::invalid_argument("Can't get determinant of invalid matrix");
-        }
+        CheckEmptyMatrix(*this);
+        CheckSquareMatrix(*this);
 
         S21Matrix temp = *this;
         double result = 0;

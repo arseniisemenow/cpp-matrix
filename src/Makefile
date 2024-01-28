@@ -33,11 +33,11 @@ ${OBJ_DIR}/%.o: ${FUNC_DIR}/%.cc
 
 test:
 ifeq ($(OS), Linux)
-	$(CXX) $(CXXFLAGS) $(TEST_SOURCES) $(LIB_STATIC) -o test -lgtest
+	$(CXX) $(CXXFLAGS) $(TEST_SOURCES) $(LIB_STATIC) -o test.out -lgtest
 else
-	$(CXX) $(CXXFLAGS) $(TEST_SOURCES) $(LIB_STATIC) -o test -lgtest
+	$(CXX) $(CXXFLAGS) $(TEST_SOURCES) $(LIB_STATIC) -o test.out -lgtest
 endif
-	./test
+	./test.out
 
 cppcheck_check:
 	cppcheck --enable=all --suppress=missingIncludeSystem *.c *.h ./*/*.c ./*/*.h ./*/*/*.c ./*/*/*.h
@@ -69,6 +69,7 @@ clean:
 	make clean_silent --silent
 
 clean_silent:
+	rm -f test
 	rm -rf "__.SYMDEF SORTED"
 	rm -rf ../*/*.o
 	rm -rf ../*/*.out

@@ -2,8 +2,6 @@
 
 namespace s21{
 void S21Matrix::SubMatrix(const S21Matrix &other) {
-    if (rows_ != other.rows_ || cols_ != other.cols_){
-        throw std::invalid_argument("Non compatible rows or cols for sum operation");
-    }
+    CheckMatricesSizeIdentity(other);
     PerformSumAndSubOperations(other, OperationType::kSubtraction);
 }}

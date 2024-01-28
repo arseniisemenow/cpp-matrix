@@ -2,7 +2,9 @@
 
 namespace s21{
 S21Matrix S21Matrix::CalcComplements() const {
-    //TODO handle errors
+    CheckSquareMatrix(*this);
+    CheckEmptyMatrix(*this);
+
     if (rows_ == cols_ == 1){
         return HandleFirstGradeMatrix();
     }

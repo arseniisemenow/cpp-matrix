@@ -16,10 +16,11 @@ namespace s21 {
     }
 
     S21Matrix S21Matrix::InverseMatrix() {
+        CheckEmptyMatrix(*this);
+        CheckSquareMatrix(*this);
         if (rows_ == cols_ == 1) {
             return GetInverseOfFirstOrderMatrix();
         }
-        //TODO handle errors
 
         double det = Determinant();
 

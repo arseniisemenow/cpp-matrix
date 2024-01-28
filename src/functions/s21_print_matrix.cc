@@ -2,6 +2,7 @@
 
 namespace s21{
 void S21Matrix::PrintMatrix() const noexcept {
+    CheckEmptyMatrix(*this);
     for (int i = 0; i <= rows_ - 1; ++i) {
         std::cout  << matrix_[i][0];
         for (int j = 1; j <= cols_ - 1; ++j) {

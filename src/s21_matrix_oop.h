@@ -52,9 +52,9 @@ namespace s21{
 
         S21Matrix &operator=(const S21Matrix &other);
 
-        S21Matrix &operator+(const S21Matrix &other);
+        S21Matrix operator+(const S21Matrix &other);
 
-        S21Matrix &operator-(const S21Matrix &other);
+        S21Matrix operator-(const S21Matrix &other);
 
         [[nodiscard]]S21Matrix operator*(const S21Matrix &other);
         [[nodiscard]]S21Matrix operator*(const double number) const;
@@ -125,6 +125,45 @@ namespace s21{
         S21Matrix CalculateInverseMatrix(S21Matrix &transposedComplementMatrix, double det) const;
 
         S21Matrix GetInverseOfFirstOrderMatrix();
+
+        void CheckEmptyMatrix(const S21Matrix& other) const{
+            if (other.cols_ <= 0 || other.rows_ <= 0 || other.matrix_ == nullptr) {
+                throw std::invalid_argument("Matrix is empty");
+            }
+        }
+        void CheckSquareMatrix(const S21Matrix& other) const{
+            if (cols_ != rows_) {
+                throw std::invalid_argument("Matrix is not square");
+            }
+        }
+        void CheckMultiplicationMatrices(const S21Matrix& other) const {
+            if (cols_ != other.rows_){
+                throw std::invalid_argument("Matrix multiplication is not possible, "
+                                            "numbers of rows in first matrix is not the same as "
+                                            "number of second matrix");
+            }
+        }
+
+        void CheckMatricesSizeIdentity(const S21Matrix& other) const{
+            if (rows_ != other.rows_ || cols_ != other.cols_){
+                throw std::invalid_argument("Matrices are not identical for the operation");
+            }
+        }
+        void CheckRowsAndColsOverflow(int rowIndex, int colIndex) const{
+            if (rowIndex >= rows_ || colIndex >= cols_) {
+                throw std::out_of_range("The number of rows or columns is overflowed");
+            }
+        }
+        void CheckRowsAndColsUnderflow(int rowIndex, int colIndex) const{
+            if (rowIndex < 0 || colIndex < 0) {
+                throw std::out_of_range("The number of rows or columns is underflowed");
+            }
+        }
+
+        void CheckRowAndCols(int rowIndex, int colIndex) const{
+            CheckRowsAndColsUnderflow(rowIndex, colIndex);
+            CheckRowsAndColsOverflow(rowIndex, colIndex);
+        }
     };
 }
 

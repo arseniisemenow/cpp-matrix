@@ -5,6 +5,7 @@ namespace s21 {
         if (*this == other) {
             return *this;
         }
+
         DestroyMatrix();
         rows_ = other.rows_;
         cols_ = other.cols_;
@@ -19,13 +20,13 @@ namespace s21 {
     }
 
 
-    S21Matrix &S21Matrix::operator+(const S21Matrix &other) {
+    S21Matrix S21Matrix::operator+(const S21Matrix &other) {
         S21Matrix temp = *this;
         temp.SumMatrix(other);
         return temp;
     }
 
-    S21Matrix &S21Matrix::operator-(const S21Matrix &other) {
+    S21Matrix S21Matrix::operator-(const S21Matrix &other) {
         S21Matrix temp = *this;
         temp.SubMatrix(other);
         return temp;
@@ -63,17 +64,13 @@ namespace s21 {
         return *this;
     }
 
-    double S21Matrix::operator()(int i, int j) const {
-        if (i < 0 || i >= rows_ || j < 0 || j >= cols_) {
-            throw std::invalid_argument("Invalid row or column index");
-        }
+    [[nodiscard]]double S21Matrix::operator()(int i, int j) const {
+        CheckRowAndCols(i, j);
         return matrix_[i][j];
     }
 
     double &S21Matrix::operator()(int i, int j) {
-        if (i < 0 || i >= rows_ || j < 0 || j >= cols_) {
-            throw std::invalid_argument("Invalid row or column index");
-        }
+        CheckRowAndCols(i, j);
         return matrix_[i][j];
     }
 

@@ -2,6 +2,7 @@
 
 namespace s21{
 void S21Matrix::MulNumber(const double number) {
+    CheckEmptyMatrix(*this);
     PerformMatrixMulOperation(number);
 }
 

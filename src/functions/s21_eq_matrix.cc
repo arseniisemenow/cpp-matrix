@@ -2,6 +2,8 @@
 
 namespace s21{
 bool S21Matrix::EqMatrix(const S21Matrix&other) const  {
+    CheckEmptyMatrix(*this);
+    CheckEmptyMatrix(other);
     return PerformComparison(other);
 }
 
