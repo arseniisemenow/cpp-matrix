@@ -1,9 +1,9 @@
 #ifndef S21_MATRIX_OOP_H_
 #define S21_MATRIX_OOP_H_
 
-#include "headers/s21_structs.h"
 #include <iostream>
 #include <cmath>
+#include <utility>
 
 
 //TODO move all constant away!
