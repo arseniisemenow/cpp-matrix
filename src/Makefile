@@ -3,7 +3,7 @@ CXXFLAGS 		:= -std=c++17 #-Wall -Werror -Wextra -Wshadow -Wconversion
 CXXCOV 			:= --coverage
 FUNC_DIR        := ./functions
 FUNC_TEST_DIR   := ../tests
-OBJ_DIR         := ./functions
+OBJ_DIR         := ./temp_obj
 LIB_STATIC      := s21_matrix_oop.a
 CXX 			:= g++
 
@@ -24,16 +24,18 @@ FUNC_SRCS       := 	$(addprefix $(FUNC_DIR)/, \
                     s21_transpose.cc)
 
 FUNC_OBJS_WITHOUT_OBJECT_DIRNAME = $(FUNC_SRCS:.c=.o)
-FUNC_OBJS = $(subst $(FUNC_DIR), $(OBJ_DIR), $(FUNC_OBJS_WITHOUT_OBJECT_DIRNAME))
+FUNC_OBJS = $(addprefix $(OBJ_DIR)/, $(notdir $(FUNC_OBJS_WITHOUT_OBJECT_DIRNAME)))
 
-$(LIB_STATIC):$(FUNC_SRCS)
-	$(CXX) $(CXXFLAGS) -c $(FUNC_SRCS)
-	ar rcs s21_matrix_oop.a $(FUNC_OBJS)
+$(LIB_STATIC): $(FUNC_SRCS)
+	ar rcs s21_matrix_oop.a $^
 
 all: rebuild
 
 build:
 	make $(LIB_STATIC)
+
+${OBJ_DIR}/%.o: ${FUNC_DIR}/%.cc
+	{CXX} ${CXXFLAGS} -c $< -o $@
 
 test:
 ifeq ($(OS), Linux)
