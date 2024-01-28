@@ -1,8 +1,8 @@
 
-#include "s21_matrix_oop.h"
+#include "../src/s21_matrix_oop.h"
 #include <iostream>
 
-void RandomizeMatrix(S21Matrix& matrix) {
+void RandomizeMatrix(s21::S21Matrix& matrix) {
     // Get the number of rows and columns in the matrix
     int rows = matrix.GetRows();
     int cols = matrix.GetCols();
@@ -16,11 +16,11 @@ void RandomizeMatrix(S21Matrix& matrix) {
 }
 
 int main() {
-
+q
     srand(time(NULL));
 
-    int size = 80;
-    S21Matrix matrix1(size, size);
+    int size = 1000;
+    s21::S21Matrix matrix1(size, size);
 
     RandomizeMatrix(matrix1);
 
@@ -33,7 +33,7 @@ int main() {
 //    matrix1(0,0) = 15;
 
 
-    matrix1.PrintMatrix();
+//    matrix1.PrintMatrix();
 
     std::cout << "Det: " << matrix1.Determinant() << std::endl;
 
