@@ -17,7 +17,7 @@ namespace s21 {
 
     S21Matrix S21Matrix::InverseMatrix() {
         if (rows_ == cols_ == 1) {
-            return GetFirstOrderMatrix();
+            return GetInverseOfFirstOrderMatrix();
         }
         //TODO handle errors
 
@@ -31,7 +31,7 @@ namespace s21 {
         return result;
     }
 
-    S21Matrix S21Matrix::GetFirstOrderMatrix() {
+    S21Matrix S21Matrix::GetInverseOfFirstOrderMatrix() {
         S21Matrix result(1, 1);
         result.matrix_[0][0] = 1 / matrix_[0][0];
         return result;
