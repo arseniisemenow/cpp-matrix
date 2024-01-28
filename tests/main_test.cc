@@ -3,14 +3,13 @@
 #include <iostream>
 
 int main() {
-    s21::S21Matrix matrix3x3(3,3);
-    s21::S21Matrix matrix{};
+    s21::S21Matrix matrix1x1(1,1);
 
-    matrix3x3(0,0) = 1;
-    matrix3x3(1,1) = 2;
-    matrix3x3(2,2) = 3;
+    matrix1x1(0, 0) = 15;
 
-    matrix3x3.PrintMatrix();
-    matrix = matrix3x3;
-    matrix3x3.PrintMatrix();
+    s21::S21Matrix complements{matrix1x1.CalcComplements()};
+
+
+
+    complements.PrintMatrix();
 }

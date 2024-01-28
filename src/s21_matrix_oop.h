@@ -121,7 +121,7 @@ namespace s21{
 
         double GetComplementSign(int i, int j) const;
 
-        S21Matrix HandleFirstGradeMatrix() const;
+        S21Matrix HandleFirstOrderMatrix() const;
 
         S21Matrix CalculateInverseMatrix(S21Matrix &transposedComplementMatrix, double det) const;
 
@@ -160,10 +160,31 @@ namespace s21{
                 throw std::out_of_range("The number of rows or columns is underflowed");
             }
         }
-
         void CheckRowAndCols(int rowIndex, int colIndex) const{
             CheckRowsAndColsUnderflow(rowIndex, colIndex);
             CheckRowsAndColsOverflow(rowIndex, colIndex);
+        }
+        void CheckRowAndColsForConstructor(int rows, int cols){
+            if (rows <= 0 || cols <= 0) {
+                throw std::invalid_argument("The number of rows or columns can't be less, then 1");
+            }
+        }
+
+        void CheckSingularMatrix(double det){
+            if (det == 0){
+                throw std::invalid_argument("Matrix is singular");
+            }
+        }
+
+        bool IsFirstOrderMatrix() const{
+            return (rows_ == 1 && cols_ == 1);
+        }
+
+        bool isZero(double value)const {
+            if (std::fabs(value) < 1e-7){
+                return true;
+            }
+            return false;
         }
     };
 }

@@ -21,6 +21,9 @@ namespace s21 {
         if (!std::isnan(tempResult)) {
             result = sign * tempResult;
         }
+        if (isZero(tempResult)){
+            result = 0;
+        }
 
         return result;
     }

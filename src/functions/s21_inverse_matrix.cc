@@ -2,7 +2,6 @@
 
 namespace s21 {
     S21Matrix S21Matrix::CalculateInverseMatrix(S21Matrix &transposedComplementMatrix, double det) const {
-        //TODO handle errors
         S21Matrix result(rows_, cols_);
 
         for (int rowIndex = 0; rowIndex < rows_; ++rowIndex) {
@@ -18,11 +17,13 @@ namespace s21 {
     S21Matrix S21Matrix::InverseMatrix() {
         CheckEmptyMatrix(*this);
         CheckSquareMatrix(*this);
-        if (rows_ == cols_ == 1) {
-            return GetInverseOfFirstOrderMatrix();
-        }
+//        if (rows_ == cols_ == 1) {
+//            return GetInverseOfFirstOrderMatrix();
+//        }
 
         double det = Determinant();
+        CheckSingularMatrix(det);
+
 
         S21Matrix complementMatrix = CalcComplements();
         S21Matrix transposedComplementMatrix = complementMatrix.Transpose();

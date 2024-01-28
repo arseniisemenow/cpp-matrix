@@ -23,6 +23,10 @@ void S21Matrix::FillMinorMatrix(double **minorMatrix, int skipRow, int skipColum
 double S21Matrix::Minor(int row, int column) const {
     CheckEmptyMatrix(*this);
     CheckSquareMatrix(*this);
+    if (IsFirstOrderMatrix()){
+        return Determinant();
+    }
+
     S21Matrix temp = S21Matrix(rows_ - 1, cols_ - 1);
 
     FillMinorMatrix(temp.matrix_, row, column, rows_ - 1);
