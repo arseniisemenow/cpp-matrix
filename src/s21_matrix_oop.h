@@ -22,13 +22,13 @@ namespace s21{
         void SetCols(int number);
 
         // todo name
-        void SetElementInMatrix(int number, int rowIndex, int colIndex);
+        void SetElementInMatrix(int number, int row_index, int col_index);
 
         [[nodiscard]] int GetRows() const noexcept;
 
         [[nodiscard]] int GetCols() const noexcept;
 
-        [[nodiscard]] double GetElementInMatrix(int rowIndex, int colIndex) const noexcept;
+        [[nodiscard]] double GetElementInMatrix(int row_index, int col_index) const noexcept;
 
         void SumMatrix(const S21Matrix &other);
 
@@ -90,12 +90,12 @@ namespace s21{
 
         void DestroyMatrix();
 
-        void ResizeMatrix(int newRows, int newCols);
+        void ResizeMatrix(int new_rows, int new_cols);
 
-        void PerformSumAndSubOperations(const S21Matrix &other, OperationType operationType);
+        void PerformSumAndSubOperations(const S21Matrix &other, OperationType operation_type);
 
-        void CalculateAndAssignSumAndSubValue(const S21Matrix& other, int rowIndex,
-                                              int colIndex, OperationType operationType);
+        void CalculateAndAssignSumAndSubValue(const S21Matrix& other, int row_index,
+                                              int col_index, OperationType operation_type);
         
         void PerformMatrixMulOperation(const double number);
         [[nodiscard]]bool PerformComparison(const S21Matrix& other) const;
@@ -104,14 +104,14 @@ namespace s21{
 
         int GaussElimination(S21Matrix & temp) const;
 
-        void PerformGaussElimination(S21Matrix&temp, int pivotIndex) const;
+        void PerformGaussElimination(S21Matrix&temp, int pivot_index) const;
 
         // todo Camel
-        void PartialPivotingInGaussElimination(S21Matrix& temp, int pivotIndex, int *pSwapCount) const;
+        void PartialPivotingInGaussElimination(S21Matrix& temp, int pivot_index, int *p_swap_count) const;
 
         [[nodiscard]] double GetSignBySwapCount(int swapCount) const;
 
-        void SwapRows(S21Matrix &temp, int rowIndex1, int rowIndex2) const;
+        void SwapRows(S21Matrix &temp, int row_index_1, int row_index_2) const;
 
         void FillMinorMatrix(double **minorMatrix, int skipRow, int skipColumn, int minorSize) const;
 
@@ -121,7 +121,7 @@ namespace s21{
 
         static S21Matrix HandleFirstOrderMatrixCalcComplements() ;
 
-        [[nodiscard]] S21Matrix CalculateInverseMatrix(const S21Matrix &transposedComplementMatrix, double det) const;
+        [[nodiscard]] S21Matrix CalculateInverseMatrix(const S21Matrix &matrix, double det) const;
 
         S21Matrix GetInverseOfFirstOrderMatrix();
 
@@ -139,7 +139,7 @@ namespace s21{
         [[nodiscard]] bool IsFirstOrderMatrix() const;
         [[nodiscard]] static bool IsZero(double value);
     };
-}
+} // namespace s21
 
 
 #endif // CPP1_S21_MATRIXPLUS_1_SRC_S21_MATRIX_OOP_H_

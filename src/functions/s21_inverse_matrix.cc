@@ -2,15 +2,14 @@
 
 namespace s21 {
 
-S21Matrix S21Matrix::CalculateInverseMatrix(
-    const S21Matrix &transposedComplementMatrix, double det) const {
+S21Matrix S21Matrix::CalculateInverseMatrix(const S21Matrix &matrix,
+                                            double det) const {
   S21Matrix result(rows_, cols_);
 
-  for (int rowIndex = 0; rowIndex < rows_; ++rowIndex) {
-    for (int columnIndex = 0; columnIndex < cols_; ++columnIndex) {
-      result.matrix_[rowIndex][columnIndex] =
-          (1.0 / det) *
-          transposedComplementMatrix.matrix_[rowIndex][columnIndex];
+  for (int row_index = 0; row_index < rows_; ++row_index) {
+    for (int col_index = 0; col_index < cols_; ++col_index) {
+      result.matrix_[row_index][col_index] =
+          (1.0 / det) * matrix.matrix_[row_index][col_index];
     }
   }
 

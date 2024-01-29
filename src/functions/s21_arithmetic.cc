@@ -2,26 +2,26 @@
 
 namespace s21 {
 void S21Matrix::PerformSumAndSubOperations(const S21Matrix &other,
-                                           OperationType operationType) {
-  for (int rowIndex = 0; rowIndex < rows_; ++rowIndex) {
-    for (int colIndex = 0; colIndex < cols_; ++colIndex) {
-      CalculateAndAssignSumAndSubValue(other, rowIndex, colIndex,
-                                       operationType);
+                                           OperationType operation_type) {
+  for (int i = 0; i < rows_; ++i) {
+    for (int j = 0; j < cols_; ++j) {
+      CalculateAndAssignSumAndSubValue(other, i, j, operation_type);
     }
   }
 }
 
 void S21Matrix::CalculateAndAssignSumAndSubValue(const S21Matrix &other,
-                                                 int rowIndex, int colIndex,
-                                                 OperationType operationType) {
+                                                 int row_index, int col_index,
+                                                 OperationType operation_type) {
   double value = 0;
 
-  if (operationType == OperationType::kAddition) {
-    value = matrix_[rowIndex][colIndex] + other.matrix_[rowIndex][colIndex];
-  } else if (operationType == OperationType::kSubtraction) {
-    value = matrix_[rowIndex][colIndex] - other.matrix_[rowIndex][colIndex];
+  if (operation_type == OperationType::kAddition) {
+    value = matrix_[row_index][col_index] + other.matrix_[row_index][col_index];
+  } else if (operation_type == OperationType::kSubtraction) {
+    value = matrix_[row_index][col_index] - other.matrix_[row_index][col_index];
   }
 
-  matrix_[rowIndex][colIndex] = value;
+  matrix_[row_index][col_index] = value;
 }
+
 }  // namespace s21

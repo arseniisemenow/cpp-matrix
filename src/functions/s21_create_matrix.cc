@@ -2,16 +2,10 @@
 
 namespace s21 {
 
-// todo
-S21Matrix::S21Matrix() {
-  rows_ = 0;
-  cols_ = 0;
-  matrix_ = nullptr;
-}
+S21Matrix::S21Matrix() {}
 
 S21Matrix::S21Matrix(int rows, int cols) : rows_(rows), cols_(cols) {
   CheckRowAndColsForConstructor(rows_, cols_);
-
   AllocateMemoryForMatrix();
 }
 

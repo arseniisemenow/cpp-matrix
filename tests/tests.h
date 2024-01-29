@@ -1,5 +1,5 @@
-#ifndef S21_MATRIX_TESTS_H
-#define S21_MATRIX_TESTS_H
+#ifndef CPP1_S21_MATRIXPLUS_1_TESTS_TESTS_H_
+#define CPP1_S21_MATRIXPLUS_1_TESTS_TESTS_H_
 
 #include <gtest/gtest.h>
 #include "../src/s21_matrix_oop.h"
@@ -21,6 +21,6 @@ private:
     void SetUp2x3Matrix();
     void SetUp3x3Matrix();
 };
-}
+} // namespace s21
 
-#endif
+#endif // CPP1_S21_MATRIXPLUS_1_TESTS_TESTS_H_
