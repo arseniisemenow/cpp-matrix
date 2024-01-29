@@ -1,16 +1,14 @@
 #include "../s21_matrix_oop.h"
 
 namespace s21 {
-S21Matrix S21Matrix::Transpose() const {
-  // TODO handle errors
-  S21Matrix transposedMatrix(cols_, rows_);
+    S21Matrix S21Matrix::Transpose() const {
+        S21Matrix transpose_result(cols_, rows_);
 
-  for (int rowIndex = 0; rowIndex < rows_; ++rowIndex) {
-    for (int colIndex = 0; colIndex < cols_; ++colIndex) {
-      transposedMatrix.matrix_[colIndex][rowIndex] =
-          matrix_[rowIndex][colIndex];
+        for (int i = 0; i < rows_; ++i) {
+            for (int j = 0; j < cols_; ++j) {
+                transpose_result.matrix_[j][i] = matrix_[i][j];
+            }
+        }
+        return transpose_result;
     }
-  }
-  return transposedMatrix;
-}
 }  // namespace s21
