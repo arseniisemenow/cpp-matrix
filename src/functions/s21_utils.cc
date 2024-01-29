@@ -1,5 +1,5 @@
-#include "../s21_matrix_oop.h"
 #include "../constants.h"
+#include "../s21_matrix_oop.h"
 
 namespace s21 {
 
@@ -8,9 +8,9 @@ namespace s21 {
 }
 
 [[nodiscard]] bool S21Matrix::IsZero(const double value) {
-    bool result = false;
+  bool result = false;
   if (std::fabs(value) < constants::kPrecision) {
-      result =  true;
+    result = true;
   }
   return result;
 }

@@ -7,9 +7,9 @@ void S21Matrix::MulNumber(const double number) {
 }
 
 void S21Matrix::PerformMatrixMulOperation(const double number) {
-  for (int rowIndex = 0; rowIndex < rows_; ++rowIndex) {
-    for (int colIndex = 0; colIndex < cols_; ++colIndex) {
-      matrix_[rowIndex][colIndex] *= number;
+  for (int i = 0; i < rows_; ++i) {
+    for (int j = 0; j < cols_; ++j) {
+      matrix_[i][j] *= number;
     }
   }
 }

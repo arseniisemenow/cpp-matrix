@@ -2,7 +2,6 @@
 
 namespace s21 {
 S21Matrix &S21Matrix::operator=(const S21Matrix &other) {
-  std::cerr << "copy\n";
   if (this == &other) {
     return *this;
   }
@@ -16,7 +15,6 @@ S21Matrix &S21Matrix::operator=(const S21Matrix &other) {
 }
 
 S21Matrix &S21Matrix::operator=(S21Matrix &&other) noexcept {
-  std::cerr << "move\n";
   if (this == &other) {
     return *this;
   }

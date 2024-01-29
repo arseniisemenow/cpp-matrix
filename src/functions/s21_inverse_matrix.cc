@@ -6,11 +6,11 @@ S21Matrix S21Matrix::CalculateInverseMatrix(const S21Matrix &matrix,
                                             double det) const {
   S21Matrix result(rows_, cols_);
 
-  for (int row_index = 0; row_index < rows_; ++row_index) {
-    for (int col_index = 0; col_index < cols_; ++col_index) {
-        double inverse_term = 1.0 / det;
-        double number = matrix.matrix_[row_index][col_index];
-        result.matrix_[row_index][col_index] = inverse_term * number;
+  for (int i = 0; i < rows_; ++i) {
+    for (int j = 0; j < cols_; ++j) {
+      double inverse_term = 1.0 / det;
+      double number = matrix.matrix_[i][j];
+      result.matrix_[i][j] = inverse_term * number;
     }
   }
 
