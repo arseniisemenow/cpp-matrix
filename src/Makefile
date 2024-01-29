@@ -71,36 +71,22 @@ install_brew_goinfre:
 install_lcov:
 	brew install lcov
 
+clean: clean_project clean_static_lib clean_log clean_exec clean_obj clean_gcov clean_lcov
+	@echo "Clean finished"
 
-clean:
-	rm -rf report
-	rm -f test
-	rm -rf "__.SYMDEF SORTED"
-	rm -rf ../*/*.o
-	rm -rf ../*/*.out
-	rm -rf ../*/*.info
-	rm -rf ../*/*.a
-	rm -rf ../*/*.g*
-	rm -rf ../*/*/*.o
-	rm -rf ../*/*/*.out
-	rm -rf ../*/*/*.info
-	rm -rf ../*/*/*.a
-	rm -rf ../*/*/*.g*
-	rm -rf ../*/*/*/*.o
-	rm -rf ../*/*/*/*.out
-	rm -rf ../*/*/*/*.info
-	rm -rf ../*/*/*/*.a
-	rm -rf ../*/*/*/*.g*
-	rm -rf ./*.log
+clean_project:
+	@rm -rf report
 
-dev_%:
-	make -f dev_Makefile.mk $@
-
-clean_obj :
-	rm -f *.o
-
-clean_after_gcov:
-	rm -rf ../*.g*
-	rm -rf ../*/*.g*
-	rm -rf ../*/*/*.g*
-	rm -rf ../*/*/*/*.g*
+clean_static_lib:
+	@find . -type file -name "*.a" -exec rm {} \;
+clean_log:
+	@find . -type file -name "*.log" -exec rm {} \;
+clean_exec:
+	@find . -type file -name "*.out" -exec rm {} \;
+clean_obj:
+	@find . -type file -name "*.o" -exec rm {} \;
+clean_gcov:
+	@find . -type file -name "*.gcda" -exec rm {} \;
+	@find . -type file -name "*.gcno" -exec rm {} \;
+clean_lcov:
+	@find . -type file -name "*.info" -exec rm {} \;
