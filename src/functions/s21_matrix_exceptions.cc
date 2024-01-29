@@ -28,21 +28,21 @@ void S21Matrix::CheckMatricesSizeIdentity(const S21Matrix &other) const {
   }
 }
 
-void S21Matrix::CheckRowsAndColsOverflow(int rowIndex, int colIndex) const {
-  if (rowIndex >= rows_ || colIndex >= cols_) {
+void S21Matrix::CheckRowsAndColsOverflow(int row_index, int col_index) const {
+  if (row_index >= rows_ || col_index >= cols_) {
     throw std::out_of_range("The number of rows or columns is overflowed");
   }
 }
 
-void S21Matrix::CheckRowsAndColsUnderflow(int rowIndex, int colIndex) const {
-  if (rowIndex < 0 || colIndex < 0) {
+void S21Matrix::CheckRowsAndColsUnderflow(int row_index, int col_index) const {
+  if (row_index < 0 || col_index < 0) {
     throw std::out_of_range("The number of rows or columns is underflowed");
   }
 }
 
-void S21Matrix::CheckRowAndColsFlows(int rowIndex, int colIndex) const {
-  CheckRowsAndColsUnderflow(rowIndex, colIndex);
-  CheckRowsAndColsOverflow(rowIndex, colIndex);
+void S21Matrix::CheckRowAndColsFlows(int row_index, int col_index) const {
+  CheckRowsAndColsUnderflow(row_index, col_index);
+  CheckRowsAndColsOverflow(row_index, col_index);
 }
 
 void S21Matrix::CheckRowAndColsForConstructor(int rows, int cols) {
