@@ -108,7 +108,7 @@ namespace s21{
 
         [[nodiscard]] double GetSignBySwapCount(int swapCount) const;
 
-        void SwapRows(double **matrix, int rowIndex1, int rowIndex2, int size) const;
+        void SwapRows(S21Matrix &temp, int rowIndex1, int rowIndex2) const;
 
         void FillMinorMatrix(double **minorMatrix, int skipRow, int skipColumn, int minorSize) const;
 

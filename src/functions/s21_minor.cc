@@ -23,7 +23,7 @@ void S21Matrix::FillMinorMatrix(double **minorMatrix, int skipRow,
 
 double S21Matrix::Minor(int row, int column) const {
   CheckEmptyMatrix(*this);
-    CheckSquareMatrix();
+  CheckSquareMatrix();
   if (IsFirstOrderMatrix()) {
     return Determinant();
   }

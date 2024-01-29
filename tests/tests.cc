@@ -52,15 +52,6 @@ void S21MatrixTest::SetUp3x3Matrix() {
   matrix3x3(2, 2) = 9;
 }
 
-void PrintMatrix(const S21Matrix &matrix) {
-  for (int i{0}; i < matrix.GetRows(); ++i) {
-    for (int j{0}; j < matrix.GetCols(); ++j) {
-      std::cerr << matrix(i, j) << ' ';
-    }
-    std::cerr << '\n';
-  }
-}
-
 TEST_F(S21MatrixTest, ConstructorTest) {
   S21Matrix matrix{10, 15};
   ASSERT_EQ(matrix.GetRows(), 10);
@@ -203,6 +194,34 @@ TEST_F(S21MatrixTest, DeterminantTest) {
                std::invalid_argument);
 }
 
+TEST_F(S21MatrixTest, DeterminantTest2) {
+  matrix1x1(0, 0) = 5;
+  double determinant1x1{matrix1x1.Determinant()};
+  ASSERT_DOUBLE_EQ(determinant1x1, 5.0);
+}
+
+TEST_F(S21MatrixTest, DeterminantTest3) {
+  S21Matrix matrix4x4{4, 4};
+  matrix4x4(0, 0) = 1;
+  matrix4x4(0, 1) = 2;
+  matrix4x4(0, 2) = 3;
+  matrix4x4(0, 3) = 4;
+  matrix4x4(1, 0) = 5;
+  matrix4x4(1, 1) = 6;
+  matrix4x4(1, 2) = 7;
+  matrix4x4(1, 3) = 8;
+  matrix4x4(2, 0) = 9;
+  matrix4x4(2, 1) = 10;
+  matrix4x4(2, 2) = 11;
+  matrix4x4(2, 3) = 12;
+  matrix4x4(3, 0) = 13;
+  matrix4x4(3, 1) = 14;
+  matrix4x4(3, 2) = 15;
+  matrix4x4(3, 3) = 16;
+  double determinant4x4{matrix4x4.Determinant()};
+  ASSERT_DOUBLE_EQ(determinant4x4, 0.0);
+}
+
 TEST_F(S21MatrixTest, InverseMatrixTest1) {
   S21Matrix inverse1x1{matrix1x1.InverseMatrix()};
   s21::S21Matrix result1x1{1, 1};
@@ -226,6 +245,14 @@ TEST_F(S21MatrixTest, InverseMatrixTest3) {
                std::invalid_argument);
   EXPECT_THROW([[maybe_unused]] auto discard{matrix3x3.InverseMatrix()},
                std::runtime_error);
+}
+TEST_F(S21MatrixTest, InverseMatrixTest4) {
+  S21Matrix inverse{matrix1x1.InverseMatrix()};
+
+  s21::S21Matrix result{1, 1};
+  result(0, 0) = 1 / matrix1x1(0, 0);
+
+  ASSERT_EQ(inverse, result);
 }
 
 TEST_F(S21MatrixTest, OperatorPlusTest) {
@@ -400,9 +427,18 @@ TEST_F(S21MatrixTest, OperatorSubscriptTest) {
   EXPECT_THROW([[maybe_unused]] auto result{matrix(3, 0)}, std::out_of_range);
 }
 
-TEST_F(S21MatrixTest, AccessorsTest) {
-  ASSERT_EQ(matrix3x3.GetCols(), 3);
-  ASSERT_EQ(matrix1x1.GetRows(), 1);
+TEST_F(S21MatrixTest, AccessorsTest1) {
+  matrix3x3.SetCols(15);
+  ASSERT_EQ(matrix3x3.GetCols(), 15);
+}
+
+TEST_F(S21MatrixTest, AccessorsTest2) {
+  matrix3x3.SetRows(15);
+  ASSERT_EQ(matrix3x3.GetRows(), 15);
+}
+TEST_F(S21MatrixTest, AccessorsTest3) {
+  matrix3x3.SetElementInMatrix(15, 0, 0);
+  ASSERT_EQ(matrix3x3.GetElementInMatrix(0, 0), 15);
 }
 
 TEST_F(S21MatrixTest, MutatorsTest1) {
@@ -439,7 +475,8 @@ TEST_F(S21MatrixTest, MutatorsTest5) {
   ASSERT_EQ(matrix3x3.GetCols(), 1);
   ASSERT_EQ(matrix3x3(0, 0), 1);
 
-  EXPECT_THROW([[maybe_unused]]double result{matrix3x3(5, 3)}, std::out_of_range);
+  EXPECT_THROW([[maybe_unused]] double result{matrix3x3(5, 3)},
+               std::out_of_range);
 }
 
 TEST_F(S21MatrixTest, MutatorsTest6) {

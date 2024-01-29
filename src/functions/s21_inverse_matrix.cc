@@ -19,6 +19,9 @@ S21Matrix S21Matrix::CalculateInverseMatrix(
 S21Matrix S21Matrix::InverseMatrix() {
   CheckEmptyMatrix(*this);
   CheckSquareMatrix();
+  if (IsFirstOrderMatrix()) {
+    return GetInverseOfFirstOrderMatrix();
+  }
   //        if (rows_ == cols_ == 1) { //TODO handle this
   //            return GetInverseOfFirstOrderMatrix();
   //        }

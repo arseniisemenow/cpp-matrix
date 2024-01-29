@@ -2,7 +2,7 @@
 
 namespace s21 {
 S21Matrix S21Matrix::CalcComplements() const {
-    CheckSquareMatrix();
+  CheckSquareMatrix();
   CheckEmptyMatrix(*this);
 
   if (IsFirstOrderMatrix()) {

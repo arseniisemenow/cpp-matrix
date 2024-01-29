@@ -8,7 +8,6 @@ LIB_STATIC      := s21_matrix_oop.a
 CXX 			:= g++
 CHECK_FLAGS		:=
 
-
 TEST_OUT		:= test.out
 TEST_SOURCES = ${FUNC_TEST_DIR}/tests.cc
 
@@ -27,7 +26,6 @@ FUNC_OBJS_WITHOUT_OBJECT_DIRNAME = $(FUNC_SRCS:.c=.o)
 
 FUNC_OBJS := $(patsubst $(FUNC_DIR)/%.cc,$(OBJ_DIR)/%.o,$(FUNC_SRCS))
 
-
 all: rebuild test gcov_report
 
 $(LIB_STATIC): ${FUNC_OBJS}
@@ -45,16 +43,20 @@ ${OBJ_DIR}/%.o: ${FUNC_DIR}/%.cc
 
 test:
 ifeq ($(OS), Linux)
-	$(CXX) $(CXXFLAGS) $(TEST_SOURCES) $(LIB_STATIC) ${CHECK_FLAGS} -o ${TEST_OUT}
+	$(CXX) $(CXXFLAGS) $(TEST_SOURCES) $(LIB_STATIC) ${CHECK_FLAGS} --gcov -o ${TEST_OUT}
 else
-	$(CXX) $(CXXFLAGS) $(TEST_SOURCES) $(LIB_STATIC) ${CHECK_FLAGS} -o ${TEST_OUT}
+	$(CXX) $(CXXFLAGS) $(TEST_SOURCES) $(LIB_STATIC) ${CHECK_FLAGS}  -o ${TEST_OUT}
 endif
 	./${TEST_OUT}
 
 gcov_report:
-	$(CC) $(CXXFLAGS) $(FUNC_SRCS) $(CHECK_FLAGS) ${CXXCOV} -o ${GCOV_OUT}
+ifeq ($(OS), Linux)
+	$(CXX) $(TEST_SOURCES) $(CXXFLAGS) $(CXXCOV) $(FUNC_SRCS) -o ./${GCOV_OUT} -lgtest
+else
+	$(CXX) $(TEST_SOURCES) $(CXXFLAGS) $(CXXCOV) $(FUNC_SRCS) -o ./${GCOV_OUT} -lgtest
+endif
 	./${GCOV_OUT}
-	lcov -t "gcov_report" --ignore-errors mismatch --no-external -c -d . -o report.info
+	lcov -t "gcov_report" --ignore-errors mismatch -c -d . -o report.info
 	genhtml report.info -o report
 	@open ./report/index.html
 	make clean_gcov
@@ -69,9 +71,8 @@ style:
 	@find .. -type file -name "*.cc" -exec clang-format -i -style=Google {} \;
 	@echo "Clang format style apply is finished"
 style_check:
-	find .. -type file -name "*.cc" -exec clang-format -n -style=Google {} \;
+	@find .. -type file -name "*.cc" -exec clang-format -n -style=Google {} \;
 	@echo "Clang format style check is finished"
-
 
 install_brew:
 	@sh ../scripts/install_brew.sh
@@ -79,7 +80,7 @@ install_brew:
 install_brew_goinfre:
 	@sh ../scripts/install_brew_goinfre.sh
 
-clean: clean_project clean_static_lib clean_log clean_exec clean_obj clean_gcov clean_lcov
+clean: clean_project clean_static_lib clean_log clean_exec clean_obj clean_gcov clean_lcov clean_lcov_report
 	@echo "Clean finished"
 
 clean_project:

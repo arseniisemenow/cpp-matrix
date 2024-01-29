@@ -3,7 +3,7 @@
 namespace s21 {
 double S21Matrix::Determinant() const {
   CheckEmptyMatrix(*this);
-    CheckSquareMatrix();
+  CheckSquareMatrix();
 
   S21Matrix temp = *this;
   double result = 0;
@@ -35,7 +35,7 @@ void S21Matrix::partialPivotingInGaussElimination(S21Matrix &temp,
     if (std::fabs(temp.matrix_[pivotIndex][pivotIndex]) <
         std::fabs(temp.matrix_[rowIndex][pivotIndex])) {
       (*pSwapCount)++;
-      SwapRows(temp.matrix_, pivotIndex, rowIndex, temp.rows_);
+      SwapRows(temp, pivotIndex, rowIndex);
     }
   }
 }
@@ -60,16 +60,15 @@ int S21Matrix::GaussElimination(S21Matrix &temp) const {
   return swapCount;
 }
 
-void S21Matrix::SwapRows(double **matrix, int rowIndex1, int rowIndex2,
-                         int size) const {
+void S21Matrix::SwapRows(S21Matrix &temp, int rowIndex1, int rowIndex2) const {
   if (rowIndex1 == rowIndex2 || rowIndex1 < 0 || rowIndex2 < 0 ||
-      rowIndex1 >= size || rowIndex2 >= size) {
+      rowIndex1 >= temp.rows_ || rowIndex2 >= temp.rows_) {
     throw std::invalid_argument("Swap rows is not possible");
   }
-  for (int columnIndex = 0; columnIndex < size; columnIndex++) {
-    double tempValue = matrix[rowIndex1][columnIndex];
-    matrix[rowIndex1][columnIndex] = matrix[rowIndex2][columnIndex];
-    matrix[rowIndex2][columnIndex] = tempValue;
+  for (int columnIndex = 0; columnIndex < temp.rows_; columnIndex++) {
+    double tempValue = temp.matrix_[rowIndex1][columnIndex];
+    temp.matrix_[rowIndex1][columnIndex] = temp.matrix_[rowIndex2][columnIndex];
+    temp.matrix_[rowIndex2][columnIndex] = tempValue;
   }
 }
 
