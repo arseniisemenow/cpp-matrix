@@ -1,6 +1,7 @@
 #include "../s21_matrix_oop.h"
 
 namespace s21 {
+
 S21Matrix S21Matrix::CalculateInverseMatrix(
     const S21Matrix &transposedComplementMatrix, double det) const {
   S21Matrix result(rows_, cols_);

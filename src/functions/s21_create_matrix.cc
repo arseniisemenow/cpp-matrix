@@ -2,6 +2,7 @@
 
 namespace s21 {
 
+// todo
 S21Matrix::S21Matrix() {
   rows_ = 0;
   cols_ = 0;

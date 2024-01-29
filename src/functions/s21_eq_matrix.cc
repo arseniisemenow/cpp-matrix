@@ -1,4 +1,5 @@
 #include "../s21_matrix_oop.h"
+#include "../constants.h"
 
 namespace s21 {
 bool S21Matrix::EqMatrix(const S21Matrix& other) const {
@@ -15,7 +16,7 @@ bool S21Matrix::PerformComparison(const S21Matrix& other) const {
          ++columnIndex) {
       double diff = fabs(matrix_[rowIndex][columnIndex] -
                          other.matrix_[rowIndex][columnIndex]);
-      if (std::fabs(diff) > S21_EPSILON) {
+      if (std::fabs(diff) > s21::constants::kPrecision) {
         comparisonStatus = false;
       }
     }

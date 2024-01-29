@@ -13,6 +13,7 @@ void S21Matrix::FillMinorMatrix(double **minorMatrix, int skipRow,
     for (columnIndexMinor = 0, columnIndexOrig = 0;
          columnIndexMinor < minorSize; ++columnIndexMinor, ++columnIndexOrig) {
       if (columnIndexOrig == skipColumn) {
+        // todo ++
         columnIndexOrig++;
       }
       minorMatrix[rowIndexMinor][columnIndexMinor] =

@@ -1,6 +1,8 @@
 #include "../s21_matrix_oop.h"
 
 namespace s21 {
+
+// todo prefix increment not postfix
 double S21Matrix::Determinant() const {
   CheckEmptyMatrix(*this);
   CheckSquareMatrix();
@@ -12,7 +14,7 @@ double S21Matrix::Determinant() const {
 
   double tempResult = 1;
 
-  for (int pivotIndex = 0; pivotIndex < rows_; pivotIndex++) {
+  for (int pivotIndex = 0; pivotIndex < rows_; ++pivotIndex) {
     tempResult *= temp.matrix_[pivotIndex][pivotIndex];
   }
 
@@ -28,7 +30,7 @@ double S21Matrix::Determinant() const {
   return result;
 }
 
-void S21Matrix::partialPivotingInGaussElimination(S21Matrix &temp,
+void S21Matrix::PartialPivotingInGaussElimination(S21Matrix &temp,
                                                   int pivotIndex,
                                                   int *pSwapCount) const {
   for (int rowIndex = pivotIndex + 1; rowIndex < temp.rows_; rowIndex++) {
@@ -54,7 +56,7 @@ void S21Matrix::PerformGaussElimination(S21Matrix &temp, int pivotIndex) const {
 int S21Matrix::GaussElimination(S21Matrix &temp) const {
   int swapCount = 0;
   for (int pivotIndex = 0; pivotIndex < temp.rows_ - 1; pivotIndex++) {
-    partialPivotingInGaussElimination(temp, pivotIndex, &swapCount);
+    PartialPivotingInGaussElimination(temp, pivotIndex, &swapCount);
     PerformGaussElimination(temp, pivotIndex);
   }
   return swapCount;

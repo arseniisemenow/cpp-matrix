@@ -1,6 +1,7 @@
 #include "../s21_matrix_oop.h"
 
 namespace s21 {
+
 void S21Matrix::ResizeMatrix(int newRows, int newCols) {
   CheckRowsAndColsUnderflow(newRows, newCols);
   if (rows_ == newRows && cols_ == newCols) {
@@ -41,4 +42,5 @@ double S21Matrix::GetElementInMatrix(int rowIndex,
                                      int colIndex) const noexcept {
   return matrix_[rowIndex][colIndex];
 }
+
 }  // namespace s21

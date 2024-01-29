@@ -1,15 +1,13 @@
-#ifndef S21_MATRIX_OOP_H_
-#define S21_MATRIX_OOP_H_
+#ifndef CPP1_S21_MATRIXPLUS_1_SRC_S21_MATRIX_OOP_H_
+#define CPP1_S21_MATRIXPLUS_1_SRC_S21_MATRIX_OOP_H_
 
-#include <iostream>
+#include <iostream>  // todo 
 #include <cmath>
 #include <utility>
 
-
-//TODO move all constant away!
-#define S21_EPSILON 1e-6
 namespace s21{
     class S21Matrix {
+
     public:
         S21Matrix();
 
@@ -23,6 +21,7 @@ namespace s21{
 
         void SetCols(int number);
 
+        // todo name
         void SetElementInMatrix(int number, int rowIndex, int colIndex);
 
         [[nodiscard]] int GetRows() const noexcept;
@@ -36,6 +35,7 @@ namespace s21{
         void SubMatrix(const S21Matrix &other);
 
         [[nodiscard]] bool EqMatrix(const S21Matrix &other) const;
+    
         void MulNumber(const double number);
         void MulMatrix(const S21Matrix& other);
 
@@ -44,7 +44,7 @@ namespace s21{
         [[nodiscard]] S21Matrix Transpose() const;
 
         [[nodiscard]] S21Matrix CalcComplements() const;
-
+        // todo const
         S21Matrix InverseMatrix();
 
         S21Matrix &operator=(const S21Matrix &other);
@@ -55,6 +55,7 @@ namespace s21{
 
         S21Matrix operator-(const S21Matrix &other);
 
+        // todo num on matrix
         [[nodiscard]]S21Matrix operator*(const S21Matrix &other);
         [[nodiscard]]S21Matrix operator*(const double number) const;
 
@@ -69,6 +70,7 @@ namespace s21{
         [[nodiscard]]double operator()(int i, int j) const;
         double &operator()(int i, int j);
 
+        // todo operator >> <<
         void PrintMatrix() const;
 
     private:
@@ -94,7 +96,7 @@ namespace s21{
 
         void CalculateAndAssignSumAndSubValue(const S21Matrix& other, int rowIndex,
                                               int colIndex, OperationType operationType);
-
+        
         void PerformMatrixMulOperation(const double number);
         [[nodiscard]]bool PerformComparison(const S21Matrix& other) const;
 
@@ -104,7 +106,8 @@ namespace s21{
 
         void PerformGaussElimination(S21Matrix&temp, int pivotIndex) const;
 
-        void partialPivotingInGaussElimination(S21Matrix& temp, int pivotIndex, int *pSwapCount) const;
+        // todo Camel
+        void PartialPivotingInGaussElimination(S21Matrix& temp, int pivotIndex, int *pSwapCount) const;
 
         [[nodiscard]] double GetSignBySwapCount(int swapCount) const;
 
@@ -139,4 +142,4 @@ namespace s21{
 }
 
 
-#endif // S21_MATRIX_OOP_H_
+#endif // CPP1_S21_MATRIXPLUS_1_SRC_S21_MATRIX_OOP_H_
