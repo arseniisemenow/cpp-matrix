@@ -59,13 +59,13 @@ endif
 	lcov -t "gcov_report" --ignore-errors mismatch -c -d . -o report.info
 	genhtml report.info -o report
 	@open ./report/index.html
-	make clean_gcov
-	make clean_lcov
+	@make clean_gcov
+	@make clean_lcov
 
 cppcheck:
-	@find . -type file -name "*.cc" -exec cppcheck --enable=all --suppress=missingIncludeSystem {} \;
-	@find . -type file -name "*.c" -exec cppcheck --enable=all --suppress=missingIncludeSystem {} \;
-	@find . -type file -name "*.h" -exec cppcheck --enable=all --suppress=missingIncludeSystem {} \;
+	@find .. -type file -name "*.cc" -exec cppcheck --enable=all --suppress=missingIncludeSystem {} \;
+	@find .. -type file -name "*.c" -exec cppcheck --enable=all --suppress=missingIncludeSystem {} \;
+	@find .. -type file -name "*.h" -exec cppcheck --enable=all --suppress=missingIncludeSystem {} \;
 	@echo "Cppcheck is finished"
 style:
 	@find .. -type file -name "*.cc" -exec clang-format -i -style=Google {} \;
@@ -84,6 +84,7 @@ clean: clean_project clean_static_lib clean_log clean_exec clean_obj clean_gcov 
 	@echo "Clean finished"
 
 clean_project:
+
 clean_after_building:
 	@rm -rf ${OBJ_DIR}
 clean_static_lib:
