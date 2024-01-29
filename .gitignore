@@ -58,3 +58,5 @@ dkms.conf
 cmake-build-debug
 CMakeLists.txt
 src/test.out
+*.out
+report/

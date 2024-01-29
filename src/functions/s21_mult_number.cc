@@ -1,9 +1,9 @@
 #include "../s21_matrix_oop.h"
 
-namespace s21{
+namespace s21 {
 void S21Matrix::MulNumber(const double number) {
-    CheckEmptyMatrix(*this);
-    PerformMatrixMulOperation(number);
+  CheckEmptyMatrix(*this);
+  PerformMatrixMulOperation(number);
 }
 
 void S21Matrix::PerformMatrixMulOperation(const double number) {
@@ -12,4 +12,5 @@ void S21Matrix::PerformMatrixMulOperation(const double number) {
       matrix_[rowIndex][colIndex] *= number;
     }
   }
-}}
+}
+}  // namespace s21

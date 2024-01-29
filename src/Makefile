@@ -1,6 +1,6 @@
 CC              := gcc
-CXXFLAGS 		:= -std=c++17 #-Wall -Werror -Wextra -Wshadow -Wconversion
-CXXCOV 			:= --coverage
+CXXFLAGS 		:= -std=c++17 -Wall -Werror -Wextra -Wshadow -Wconversion
+CXXCOV 			:=  --coverage
 FUNC_DIR        := ./functions
 FUNC_TEST_DIR   := ../tests
 OBJ_DIR         := temp_obj
@@ -8,13 +8,18 @@ LIB_STATIC      := s21_matrix_oop.a
 CXX 			:= g++
 CHECK_FLAGS		:=
 
+
+TEST_OUT		:= test.out
+TEST_SOURCES = ${FUNC_TEST_DIR}/tests.cc
+
+GCOV_OUT		:= gcov_report.out
+
 ifeq ($(OS), Linux)
 	CHECK_FLAGS=-lgtest -lgtest_main -lrt -lm -lstdc++ -pthread -fprofile-arcs -ftest-coverage
 else
 	CHECK_FLAGS=-lgtest -lgtest_main -lm -lpthread -fprofile-arcs -ftest-coverage -lstdc++
 endif
 
-TEST_SOURCES = ${FUNC_TEST_DIR}/tests.cc
 
 FUNC_SRCS := $(wildcard $(FUNC_DIR)/*.cc)
 
@@ -22,15 +27,15 @@ FUNC_OBJS_WITHOUT_OBJECT_DIRNAME = $(FUNC_SRCS:.c=.o)
 
 FUNC_OBJS := $(patsubst $(FUNC_DIR)/%.cc,$(OBJ_DIR)/%.o,$(FUNC_SRCS))
 
+
+all: rebuild test gcov_report
+
 $(LIB_STATIC): ${FUNC_OBJS}
 	ar rcs $@ $^
-	rm -rf ${OBJ_DIR}
-
-
-all: rebuild
 
 build:
 	make $(LIB_STATIC)
+	@make clean_after_building
 
 rebuild: clean build
 
@@ -40,43 +45,46 @@ ${OBJ_DIR}/%.o: ${FUNC_DIR}/%.cc
 
 test:
 ifeq ($(OS), Linux)
-	$(CXX) $(CXXFLAGS) $(TEST_SOURCES) $(LIB_STATIC) -o test.out -lgtest
+	$(CXX) $(CXXFLAGS) $(TEST_SOURCES) $(LIB_STATIC) ${CHECK_FLAGS} -o ${TEST_OUT}
 else
-	$(CXX) $(CXXFLAGS) $(TEST_SOURCES) $(LIB_STATIC) -o test.out -lgtest
+	$(CXX) $(CXXFLAGS) $(TEST_SOURCES) $(LIB_STATIC) ${CHECK_FLAGS} -o ${TEST_OUT}
 endif
-	./test.out
-
-cppcheck_check:
-	cppcheck --enable=all --suppress=missingIncludeSystem *.c *.h ./*/*.c ./*/*.h ./*/*/*.c ./*/*/*.h
-check:
-	clang-format -n -style=Google  *.c *.h ./*/*.c ./*/*.h ./*/*/*.c ./*/*/*.h
-clang_format:
-	clang-format -i -style=Google  *.cpp *.h ./*/*.cpp ./*/*.h ./*/*/*.cpp ./*/*/*.h
+	./${TEST_OUT}
 
 gcov_report:
-	$(CC) $(CXXFLAGS) $(FUNC_SRCS) $(CHECK_FLAGS) -lgcov --coverage -o ./gcov_report.out
-	./gcov_report.out
+	$(CC) $(CXXFLAGS) $(FUNC_SRCS) $(CHECK_FLAGS) ${CXXCOV} -o ${GCOV_OUT}
+	./${GCOV_OUT}
 	lcov -t "gcov_report" --ignore-errors mismatch --no-external -c -d . -o report.info
 	genhtml report.info -o report
-	open ./report/index.html
+	@open ./report/index.html
+	make clean_gcov
+	make clean_lcov
+
+cppcheck:
+	@find . -type file -name "*.cc" -exec cppcheck --enable=all --suppress=missingIncludeSystem {} \;
+	@find . -type file -name "*.c" -exec cppcheck --enable=all --suppress=missingIncludeSystem {} \;
+	@find . -type file -name "*.h" -exec cppcheck --enable=all --suppress=missingIncludeSystem {} \;
+	@echo "Cppcheck is finished"
+style:
+	@find .. -type file -name "*.cc" -exec clang-format -i -style=Google {} \;
+	@echo "Clang format style apply is finished"
+style_check:
+	find .. -type file -name "*.cc" -exec clang-format -n -style=Google {} \;
+	@echo "Clang format style check is finished"
+
 
 install_brew:
-	cd ~ # cd command can't be executed inside Makefile!
-	curl -fsSL https://rawgit.com/kube/42homebrew/master/install.sh | zsh
+	@sh ../scripts/install_brew.sh
 
 install_brew_goinfre:
-	cd ~/goinfre # cd command can't be executed inside Makefile!
-	mkdir homebrew && curl -L https://github.com/Homebrew/brew/tarball/master | tar xz --strip 1 -C homebrew
-
-install_lcov:
-	brew install lcov
+	@sh ../scripts/install_brew_goinfre.sh
 
 clean: clean_project clean_static_lib clean_log clean_exec clean_obj clean_gcov clean_lcov
 	@echo "Clean finished"
 
 clean_project:
-	@rm -rf report
-
+clean_after_building:
+	@rm -rf ${OBJ_DIR}
 clean_static_lib:
 	@find . -type file -name "*.a" -exec rm {} \;
 clean_log:
@@ -90,3 +98,5 @@ clean_gcov:
 	@find . -type file -name "*.gcno" -exec rm {} \;
 clean_lcov:
 	@find . -type file -name "*.info" -exec rm {} \;
+clean_lcov_report:
+	@rm -rf report

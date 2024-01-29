@@ -69,7 +69,7 @@ namespace s21{
         [[nodiscard]]double operator()(int i, int j) const;
         double &operator()(int i, int j);
 
-        void PrintMatrix() const noexcept;
+        void PrintMatrix() const;
 
     private:
         int rows_{};
@@ -118,58 +118,20 @@ namespace s21{
 
         static S21Matrix HandleFirstOrderMatrix() ;
 
-        S21Matrix CalculateInverseMatrix(S21Matrix &transposedComplementMatrix, double det) const;
+        S21Matrix CalculateInverseMatrix(const S21Matrix &transposedComplementMatrix, double det) const;
 
         S21Matrix GetInverseOfFirstOrderMatrix();
 
-        static void CheckEmptyMatrix(const S21Matrix& other) {
-            if (other.cols_ <= 0 || other.rows_ <= 0 || other.matrix_ == nullptr) {
-                throw std::invalid_argument("Matrix is empty");
-            }
-        }
-        void CheckSquareMatrix(const S21Matrix& other) const{
-            if (cols_ != rows_) {
-                throw std::invalid_argument("Matrix is not square");
-            }
-        }
-        void CheckMultiplicationMatrices(const S21Matrix& other) const {
-            if (cols_ != other.rows_){
-                throw std::invalid_argument("Matrix multiplication is not possible, "
-                                            "numbers of rows in first matrix is not the same as "
-                                            "number of second matrix");
-            }
-        }
+        static void CheckEmptyMatrix(const S21Matrix& other);
+        void CheckSquareMatrix() const;
+        void CheckMultiplicationMatrices(const S21Matrix& other) const;
+        void CheckMatricesSizeIdentity(const S21Matrix& other) const;
+        void CheckRowsAndColsOverflow(int rowIndex, int colIndex) const;
+        static void CheckRowsAndColsUnderflow(int rowIndex, int colIndex);
+        void CheckRowAndColsFlows(int rowIndex, int colIndex) const;
+        static void CheckRowAndColsForConstructor(int rows, int cols);
 
-        void CheckMatricesSizeIdentity(const S21Matrix& other) const{
-            if (rows_ != other.rows_ || cols_ != other.cols_){
-                throw std::invalid_argument("Matrices are not identical for the operation");
-            }
-        }
-        void CheckRowsAndColsOverflow(int rowIndex, int colIndex) const{
-            if (rowIndex >= rows_ || colIndex >= cols_) {
-                throw std::out_of_range("The number of rows or columns is overflowed");
-            }
-        }
-        static void CheckRowsAndColsUnderflow(int rowIndex, int colIndex) {
-            if (rowIndex < 0 || colIndex < 0) {
-                throw std::out_of_range("The number of rows or columns is underflowed");
-            }
-        }
-        void CheckRowAndColsFlows(int rowIndex, int colIndex) const{
-            CheckRowsAndColsUnderflow(rowIndex, colIndex);
-            CheckRowsAndColsOverflow(rowIndex, colIndex);
-        }
-        static void CheckRowAndColsForConstructor(int rows, int cols){
-            if (rows <= 0 || cols <= 0) {
-                throw std::invalid_argument("The number of rows or columns can't be less, then 1");
-            }
-        }
-
-        static void CheckSingularMatrix(double det){
-            if (det == 0){
-                throw std::runtime_error("Matrix is singular");
-            }
-        }
+        static void CheckSingularMatrix(double det);
 
         [[nodiscard]] bool IsFirstOrderMatrix() const{
             return (rows_ == 1 && cols_ == 1);
