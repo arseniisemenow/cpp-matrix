@@ -169,7 +169,10 @@ namespace s21 {
 
     TEST_F(S21MatrixTest, CalcComplementsTest1) {
         S21Matrix matrix{matrix1x1.CalcComplements()};
-        ASSERT_EQ(matrix, matrix1x1);
+        S21Matrix identityMatrix(1,1);
+        identityMatrix(0,0) = 1;
+
+        ASSERT_EQ(matrix, identityMatrix);
     }
 
     TEST_F(S21MatrixTest, CalcComplementsTest2) {
@@ -216,10 +219,8 @@ namespace s21 {
         result(1, 1) = -0.5;
 
         ASSERT_EQ(inverse, result);
-
-        EXPECT_THROW([[maybe_unused]] auto discard{matrix2x3.InverseMatrix()}, std::invalid_argument);
-        EXPECT_THROW([[maybe_unused]] auto discard{matrix3x3.InverseMatrix()}, std::runtime_error);
     }
+
 
     TEST_F(S21MatrixTest, InverseMatrixTest3) {
         EXPECT_THROW([[maybe_unused]] auto discard{matrix2x3.InverseMatrix()}, std::invalid_argument);
@@ -442,6 +443,25 @@ namespace s21 {
     TEST_F(S21MatrixTest, MutatorsTest6) {
         EXPECT_THROW(matrix3x3.SetRows(-5), std::out_of_range);
         EXPECT_THROW(matrix3x3.SetCols(-5), std::out_of_range);
+    }
+    TEST_F(S21MatrixTest, MutatorsTest7) {
+        matrix2x2.SetElementInMatrix(100, 0 , 0);
+        matrix2x2.SetElementInMatrix(101, 0, 1);
+        matrix2x2.SetElementInMatrix(102, 1, 0);
+        matrix2x2.SetElementInMatrix(103, 1, 1);
+
+        ASSERT_EQ(matrix2x2(0, 0), 100);
+        ASSERT_EQ(matrix2x2(0, 1), 101);
+        ASSERT_EQ(matrix2x2(1, 0), 102);
+        ASSERT_EQ(matrix2x2(1, 1), 103);
+    }
+    TEST_F(S21MatrixTest, MutatorsTest8) {
+        EXPECT_THROW(matrix2x2.SetElementInMatrix(100, 2 , 0), std::out_of_range);
+        EXPECT_THROW(matrix2x2.SetElementInMatrix(100, 0 , 2), std::out_of_range);
+    }
+    TEST_F(S21MatrixTest, MutatorsTest9) {
+        EXPECT_THROW(matrix2x2.SetElementInMatrix(100, 0 , -1), std::out_of_range);
+        EXPECT_THROW(matrix2x2.SetElementInMatrix(100, -1 , 0), std::out_of_range);
     }
 }
 

@@ -7,8 +7,6 @@
 
 
 //TODO move all constant away!
-#define SUCCESS 1
-#define FAILURE 0
 #define S21_EPSILON 1e-6
 namespace s21{
     class S21Matrix {
@@ -84,7 +82,6 @@ namespace s21{
             kSubtraction = 2 << 0,
         };
 
-
         void AllocateMemoryForMatrix();
 
         void CopyMatrixData(const S21Matrix &other) noexcept;
@@ -94,8 +91,6 @@ namespace s21{
         void ResizeMatrix(int newRows, int newCols);
 
         void PerformSumAndSubOperations(const S21Matrix &other, OperationType operationType);
-
-        void ArithmeticShellForSumAndSub(const S21Matrix &other, OperationType operationType);
 
         void CalculateAndAssignSumAndSubValue(const S21Matrix& other, int rowIndex,
                                               int colIndex, OperationType operationType);
@@ -117,17 +112,17 @@ namespace s21{
 
         void FillMinorMatrix(double **minorMatrix, int skipRow, int skipColumn, int minorSize) const;
 
-        double Minor(int row, int column) const;
+        [[nodiscard]] double Minor(int row, int column) const;
 
-        double GetComplementSign(int i, int j) const;
+        static double GetComplementSign(int i, int j) ;
 
-        S21Matrix HandleFirstOrderMatrix() const;
+        static S21Matrix HandleFirstOrderMatrix() ;
 
         S21Matrix CalculateInverseMatrix(S21Matrix &transposedComplementMatrix, double det) const;
 
         S21Matrix GetInverseOfFirstOrderMatrix();
 
-        void CheckEmptyMatrix(const S21Matrix& other) const{
+        static void CheckEmptyMatrix(const S21Matrix& other) {
             if (other.cols_ <= 0 || other.rows_ <= 0 || other.matrix_ == nullptr) {
                 throw std::invalid_argument("Matrix is empty");
             }
@@ -155,32 +150,32 @@ namespace s21{
                 throw std::out_of_range("The number of rows or columns is overflowed");
             }
         }
-        void CheckRowsAndColsUnderflow(int rowIndex, int colIndex) const{
+        static void CheckRowsAndColsUnderflow(int rowIndex, int colIndex) {
             if (rowIndex < 0 || colIndex < 0) {
                 throw std::out_of_range("The number of rows or columns is underflowed");
             }
         }
-        void CheckRowAndCols(int rowIndex, int colIndex) const{
+        void CheckRowAndColsFlows(int rowIndex, int colIndex) const{
             CheckRowsAndColsUnderflow(rowIndex, colIndex);
             CheckRowsAndColsOverflow(rowIndex, colIndex);
         }
-        void CheckRowAndColsForConstructor(int rows, int cols){
+        static void CheckRowAndColsForConstructor(int rows, int cols){
             if (rows <= 0 || cols <= 0) {
                 throw std::invalid_argument("The number of rows or columns can't be less, then 1");
             }
         }
 
-        void CheckSingularMatrix(double det){
+        static void CheckSingularMatrix(double det){
             if (det == 0){
-                throw std::invalid_argument("Matrix is singular");
+                throw std::runtime_error("Matrix is singular");
             }
         }
 
-        bool IsFirstOrderMatrix() const{
+        [[nodiscard]] bool IsFirstOrderMatrix() const{
             return (rows_ == 1 && cols_ == 1);
         }
 
-        bool isZero(double value)const {
+        [[nodiscard]] static bool isZero(double value) {
             if (std::fabs(value) < 1e-7){
                 return true;
             }

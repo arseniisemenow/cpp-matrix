@@ -22,11 +22,11 @@ S21Matrix S21Matrix::CalcComplements() const {
     return result;
 }
 
-S21Matrix S21Matrix::HandleFirstOrderMatrix() const {
+S21Matrix S21Matrix::HandleFirstOrderMatrix() {
     S21Matrix result(1, 1);
     result.matrix_[0][0] = 1;
     return result;
 }
-double S21Matrix::GetComplementSign(int i, int j )const {
+double S21Matrix::GetComplementSign(int i, int j ) {
     return ((i + j) % 2 == 1) ? -1.0 : 1.0;
 }}

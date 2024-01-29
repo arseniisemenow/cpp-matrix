@@ -6,6 +6,13 @@ FUNC_TEST_DIR   := ../tests
 OBJ_DIR         := temp_obj
 LIB_STATIC      := s21_matrix_oop.a
 CXX 			:= g++
+CHECK_FLAGS		:=
+
+ifeq ($(OS), Linux)
+	CHECK_FLAGS=-lgtest -lgtest_main -lrt -lm -lstdc++ -pthread -fprofile-arcs -ftest-coverage
+else
+	CHECK_FLAGS=-lgtest -lgtest_main -lm -lpthread -fprofile-arcs -ftest-coverage -lstdc++
+endif
 
 TEST_SOURCES = ${FUNC_TEST_DIR}/tests.cc
 
@@ -28,7 +35,7 @@ build:
 rebuild: clean build
 
 ${OBJ_DIR}/%.o: ${FUNC_DIR}/%.cc
-	-@mkdir  ${OBJ_DIR}
+	@mkdir -p ${OBJ_DIR}
 	${CXX} ${CXXFLAGS} -c $< -o $@
 
 test:
@@ -47,28 +54,26 @@ clang_format:
 	clang-format -i -style=Google  *.cpp *.h ./*/*.cpp ./*/*.h ./*/*/*.cpp ./*/*/*.h
 
 gcov_report:
-	mkdir report
-	gcc tests/main_test.c $(FUNC_SRCS) $(CFLAGS) $(TEST_FLAGS) $(GCOV_FLAGS) -o ./$@.out
-	./$@.out
-	lcov -t "test" -o test.info -c -d .
-	genhtml -o report/ test.info
+	$(CC) $(CXXFLAGS) $(FUNC_SRCS) $(CHECK_FLAGS) -lgcov --coverage -o ./gcov_report.out
+	./gcov_report.out
+	lcov -t "gcov_report" --ignore-errors mismatch --no-external -c -d . -o report.info
+	genhtml report.info -o report
 	open ./report/index.html
 
 install_brew:
-	cd ~
+	cd ~ # cd command can't be executed inside Makefile!
 	curl -fsSL https://rawgit.com/kube/42homebrew/master/install.sh | zsh
 
-install_brew_goinfre: # be careful with this!
-	cd ~/goinfre
+install_brew_goinfre:
+	cd ~/goinfre # cd command can't be executed inside Makefile!
 	mkdir homebrew && curl -L https://github.com/Homebrew/brew/tarball/master | tar xz --strip 1 -C homebrew
 
 install_lcov:
 	brew install lcov
 
-clean:
-	make clean_silent --silent
 
-clean_silent:
+clean:
+	rm -rf report
 	rm -f test
 	rm -rf "__.SYMDEF SORTED"
 	rm -rf ../*/*.o

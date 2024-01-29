@@ -79,12 +79,12 @@ namespace s21 {
     }
 
     [[nodiscard]]double S21Matrix::operator()(int i, int j) const {
-        CheckRowAndCols(i, j);
+        CheckRowAndColsFlows(i, j);
         return matrix_[i][j];
     }
 
     double &S21Matrix::operator()(int i, int j) {
-        CheckRowAndCols(i, j);
+        CheckRowAndColsFlows(i, j);
         return matrix_[i][j];
     }
 

@@ -33,9 +33,7 @@ namespace s21 {
     }
 
     void S21Matrix::SetElementInMatrix(int number, int rowIndex, int colIndex) {
-        if (rowIndex < 0 || colIndex < 0) {
-            throw std::length_error("The index of row and column can't be negative number");
-        }
+        CheckRowAndColsFlows(rowIndex, colIndex);
         matrix_[rowIndex][colIndex] = number;
     }
 
