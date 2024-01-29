@@ -75,7 +75,8 @@ TEST_F(S21MatrixTest, EqMatrixTest) {
   S21Matrix matrix{3, 3};
   ASSERT_FALSE(matrix3x3.EqMatrix(matrix));
   S21Matrix emptyMatrix;
-  ASSERT_THROW([[maybe_unused]]bool value = emptyMatrix.EqMatrix(matrix1x1), std::invalid_argument);
+  ASSERT_THROW([[maybe_unused]] bool value = emptyMatrix.EqMatrix(matrix1x1),
+               std::invalid_argument);
 }
 TEST_F(S21MatrixTest, SumMatrixTest) {
   matrix3x3.SumMatrix(matrix3x3);
@@ -504,11 +505,10 @@ TEST_F(S21MatrixTest, MutatorsTest9) {
   EXPECT_THROW(matrix2x2.SetElementInMatrix(100, -1, 0), std::out_of_range);
 }
 TEST_F(S21MatrixTest, MutatorsTest10) {
-        matrix1x1.SetCols(1);
-        matrix1x1.SetRows(1);
-    }
+  matrix1x1.SetCols(1);
+  matrix1x1.SetRows(1);
+}
 }  // namespace s21
-
 
 int main(int argc, char *argv[]) {
   testing::InitGoogleTest(&argc, argv);
