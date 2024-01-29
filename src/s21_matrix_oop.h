@@ -133,16 +133,8 @@ namespace s21{
 
         static void CheckSingularMatrix(double det);
 
-        [[nodiscard]] bool IsFirstOrderMatrix() const{
-            return (rows_ == 1 && cols_ == 1);
-        }
-
-        [[nodiscard]] static bool IsZero(double value) {
-            if (std::fabs(value) < 1e-7){
-                return true;
-            }
-            return false;
-        }
+        [[nodiscard]] bool IsFirstOrderMatrix() const;
+        [[nodiscard]] static bool IsZero(double value);
     };
 }
 

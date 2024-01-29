@@ -61,10 +61,6 @@ int S21Matrix::GaussElimination(S21Matrix &temp) const {
 }
 
 void S21Matrix::SwapRows(S21Matrix &temp, int rowIndex1, int rowIndex2) const {
-  if (rowIndex1 == rowIndex2 || rowIndex1 < 0 || rowIndex2 < 0 ||
-      rowIndex1 >= temp.rows_ || rowIndex2 >= temp.rows_) {
-    throw std::invalid_argument("Swap rows is not possible");
-  }
   for (int columnIndex = 0; columnIndex < temp.rows_; columnIndex++) {
     double tempValue = temp.matrix_[rowIndex1][columnIndex];
     temp.matrix_[rowIndex1][columnIndex] = temp.matrix_[rowIndex2][columnIndex];

@@ -74,8 +74,9 @@ TEST_F(S21MatrixTest, EqMatrixTest) {
   ASSERT_FALSE(matrix3x3.EqMatrix(matrix2x2));
   S21Matrix matrix{3, 3};
   ASSERT_FALSE(matrix3x3.EqMatrix(matrix));
+  S21Matrix emptyMatrix;
+  ASSERT_THROW([[maybe_unused]]bool value = emptyMatrix.EqMatrix(matrix1x1), std::invalid_argument);
 }
-
 TEST_F(S21MatrixTest, SumMatrixTest) {
   matrix3x3.SumMatrix(matrix3x3);
   s21::S21Matrix result{3, 3};
@@ -427,16 +428,16 @@ TEST_F(S21MatrixTest, OperatorSubscriptTest) {
   EXPECT_THROW([[maybe_unused]] auto result{matrix(3, 0)}, std::out_of_range);
 }
 
-TEST_F(S21MatrixTest, AccessorsTest1) {
+TEST_F(S21MatrixTest, AccessorsMutatorsTest1) {
   matrix3x3.SetCols(15);
   ASSERT_EQ(matrix3x3.GetCols(), 15);
 }
 
-TEST_F(S21MatrixTest, AccessorsTest2) {
+TEST_F(S21MatrixTest, AccessorsMutatorsTest2) {
   matrix3x3.SetRows(15);
   ASSERT_EQ(matrix3x3.GetRows(), 15);
 }
-TEST_F(S21MatrixTest, AccessorsTest3) {
+TEST_F(S21MatrixTest, AccessorsMutatorsTest3) {
   matrix3x3.SetElementInMatrix(15, 0, 0);
   ASSERT_EQ(matrix3x3.GetElementInMatrix(0, 0), 15);
 }
@@ -502,7 +503,12 @@ TEST_F(S21MatrixTest, MutatorsTest9) {
   EXPECT_THROW(matrix2x2.SetElementInMatrix(100, 0, -1), std::out_of_range);
   EXPECT_THROW(matrix2x2.SetElementInMatrix(100, -1, 0), std::out_of_range);
 }
+TEST_F(S21MatrixTest, MutatorsTest10) {
+        matrix1x1.SetCols(1);
+        matrix1x1.SetRows(1);
+    }
 }  // namespace s21
+
 
 int main(int argc, char *argv[]) {
   testing::InitGoogleTest(&argc, argv);
