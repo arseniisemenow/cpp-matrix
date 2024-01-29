@@ -113,7 +113,7 @@ namespace s21{
 
         void SwapRows(S21Matrix &temp, int row_index_1, int row_index_2) const;
 
-        void FillMinorMatrix(double **minorMatrix, int skipRow, int skipColumn, int minorSize) const;
+        void FillMinorMatrix(double **minor_matrix, int skip_row, int skip_col, int minor_size) const;
 
         [[nodiscard]] double Minor(int row, int column) const;
 
@@ -129,9 +129,9 @@ namespace s21{
         void CheckSquareMatrix() const;
         void CheckMultiplicationMatrices(const S21Matrix& other) const;
         void CheckMatricesSizeIdentity(const S21Matrix& other) const;
-        void CheckRowsAndColsOverflow(int rowIndex, int colIndex) const;
-        void CheckRowsAndColsUnderflow(int rowIndex, int colIndex) const;
-        void CheckRowAndColsFlows(int rowIndex, int colIndex) const;
+        void CheckRowsAndColsOverflow(int row_index, int col_index) const;
+        void CheckRowsAndColsUnderflow(int row_index, int col_index) const;
+        void CheckRowAndColsFlows(int row_index, int col_index) const;
         static void CheckRowAndColsForConstructor(int rows, int cols);
 
         static void CheckSingularMatrix(double det);
