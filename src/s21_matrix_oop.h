@@ -116,9 +116,9 @@ namespace s21{
 
         static double GetComplementSign(int i, int j) ;
 
-        static S21Matrix HandleFirstOrderMatrix() ;
+        static S21Matrix HandleFirstOrderMatrixCalcComplements() ;
 
-        S21Matrix CalculateInverseMatrix(const S21Matrix &transposedComplementMatrix, double det) const;
+        [[nodiscard]] S21Matrix CalculateInverseMatrix(const S21Matrix &transposedComplementMatrix, double det) const;
 
         S21Matrix GetInverseOfFirstOrderMatrix();
 
@@ -127,7 +127,7 @@ namespace s21{
         void CheckMultiplicationMatrices(const S21Matrix& other) const;
         void CheckMatricesSizeIdentity(const S21Matrix& other) const;
         void CheckRowsAndColsOverflow(int rowIndex, int colIndex) const;
-        static void CheckRowsAndColsUnderflow(int rowIndex, int colIndex);
+        void CheckRowsAndColsUnderflow(int rowIndex, int colIndex) const;
         void CheckRowAndColsFlows(int rowIndex, int colIndex) const;
         static void CheckRowAndColsForConstructor(int rows, int cols);
 
@@ -137,7 +137,7 @@ namespace s21{
             return (rows_ == 1 && cols_ == 1);
         }
 
-        [[nodiscard]] static bool isZero(double value) {
+        [[nodiscard]] static bool IsZero(double value) {
             if (std::fabs(value) < 1e-7){
                 return true;
             }

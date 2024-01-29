@@ -60,3 +60,5 @@ CMakeLists.txt
 src/test.out
 *.out
 report/
+*.gcda
+*.gcno

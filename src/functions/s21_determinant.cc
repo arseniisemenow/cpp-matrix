@@ -21,7 +21,7 @@ double S21Matrix::Determinant() const {
   if (!std::isnan(tempResult)) {
     result = sign * tempResult;
   }
-  if (isZero(tempResult)) {
+  if (IsZero(tempResult)) {
     result = 0;
   }
 

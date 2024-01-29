@@ -6,7 +6,7 @@ S21Matrix S21Matrix::CalcComplements() const {
   CheckEmptyMatrix(*this);
 
   if (IsFirstOrderMatrix()) {
-    return HandleFirstOrderMatrix();
+    return HandleFirstOrderMatrixCalcComplements();
   }
   S21Matrix temp = *this;
   S21Matrix result(rows_, cols_);
@@ -22,7 +22,7 @@ S21Matrix S21Matrix::CalcComplements() const {
   return result;
 }
 
-S21Matrix S21Matrix::HandleFirstOrderMatrix() {
+S21Matrix S21Matrix::HandleFirstOrderMatrixCalcComplements() {
   S21Matrix result(1, 1);
   result.matrix_[0][0] = 1;
   return result;

@@ -34,7 +34,7 @@ void S21Matrix::CheckRowsAndColsOverflow(int rowIndex, int colIndex) const {
   }
 }
 
-void S21Matrix::CheckRowsAndColsUnderflow(int rowIndex, int colIndex) {
+void S21Matrix::CheckRowsAndColsUnderflow(int rowIndex, int colIndex) const {
   if (rowIndex < 0 || colIndex < 0) {
     throw std::out_of_range("The number of rows or columns is underflowed");
   }
