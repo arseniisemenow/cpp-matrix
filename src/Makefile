@@ -91,8 +91,6 @@ install_brew_goinfre:
 clean: clean_project clean_static_lib clean_log clean_exec clean_obj clean_gcov clean_lcov clean_lcov_report
 	@echo "Clean finished"
 
-
-
 clean_project:
 
 clean_after_building:
