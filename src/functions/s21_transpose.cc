@@ -6,7 +6,7 @@ S21Matrix S21Matrix::Transpose() const {
 
   for (int i = 0; i < rows_; ++i) {
     for (int j = 0; j < cols_; ++j) {
-      transpose_result.matrix_[j][i] = matrix_[i][j];
+      transpose_result(j, i) = matrix_[i][j];
     }
   }
   return transpose_result;

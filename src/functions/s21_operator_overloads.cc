@@ -100,4 +100,8 @@ std::ostream &operator<<(std::ostream &stream, const S21Matrix &matrix) {
   return stream;
 }
 
+S21Matrix operator*(const double number, const S21Matrix &matrix) {
+  return matrix * number;
+}
+
 }  // namespace s21

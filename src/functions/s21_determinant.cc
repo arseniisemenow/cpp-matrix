@@ -3,7 +3,6 @@
 namespace s21 {
 
 double S21Matrix::Determinant() const {
-  CheckEmptyMatrix(*this);
   CheckSquareMatrix();
 
   S21Matrix temp = *this;

@@ -27,6 +27,5 @@ void S21Matrix::PerformMatricesMulOperation(const S21Matrix &other) {
     ++row_index;
   }
   *this = temp;
-  std::cerr << "matrix: " << temp;
 }
 }  // namespace s21

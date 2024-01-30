@@ -17,9 +17,7 @@ S21Matrix S21Matrix::CalculateInverseMatrix(const S21Matrix &matrix,
   return result;
 }
 
-S21Matrix S21Matrix::InverseMatrix() {
-  CheckEmptyMatrix(*this);
-  CheckSquareMatrix();
+S21Matrix S21Matrix::InverseMatrix() const {
   if (IsFirstOrderMatrix()) {
     return GetInverseOfFirstOrderMatrix();
   }
@@ -35,7 +33,7 @@ S21Matrix S21Matrix::InverseMatrix() {
   return result;
 }
 
-S21Matrix S21Matrix::GetInverseOfFirstOrderMatrix() {
+S21Matrix S21Matrix::GetInverseOfFirstOrderMatrix() const {
   S21Matrix result(1, 1);
   result(0, 0) = 1 / matrix_[0][0];
   return result;

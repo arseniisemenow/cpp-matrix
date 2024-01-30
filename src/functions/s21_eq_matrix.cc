@@ -14,8 +14,7 @@ bool S21Matrix::PerformComparison(const S21Matrix &other) const {
 
   for (int i = 0; i < rows_ && comparison_status; ++i) {
     for (int j = 0; j < cols_ && comparison_status; ++j) {
-      double diff = std::fabs(matrix_[i][j] - other(i, j));
-
+      double diff = std::fabs(matrix_[i][j] - other.matrix_[i][j]);
       if (diff > constants::kPrecision) {
         comparison_status = false;
       }

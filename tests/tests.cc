@@ -292,8 +292,25 @@ TEST_F(S21MatrixTest, OperatorMinusTest) {
   ASSERT_EQ(result, matrix3x3);
 }
 
-TEST_F(S21MatrixTest, OperatorMulNumberTest) {
+TEST_F(S21MatrixTest, OperatorMulNumberTest1) {
   matrix3x3 = matrix3x3 * 3;
+  s21::S21Matrix result{3, 3};
+  result(0, 0) = 3;
+  result(0, 1) = 6;
+  result(0, 2) = 9;
+
+  result(1, 0) = 12;
+  result(1, 1) = 15;
+  result(1, 2) = 18;
+
+  result(2, 0) = 21;
+  result(2, 1) = 24;
+  result(2, 2) = 27;
+
+  ASSERT_EQ(result, matrix3x3);
+}
+TEST_F(S21MatrixTest, OperatorMulNumberTest2) {
+  matrix3x3 = 3 * matrix3x3;
   s21::S21Matrix result{3, 3};
   result(0, 0) = 3;
   result(0, 1) = 6;

@@ -45,7 +45,7 @@ namespace s21{
 
         [[nodiscard]] S21Matrix CalcComplements() const;
         // todo const
-        S21Matrix InverseMatrix();
+        S21Matrix InverseMatrix() const;
 
         S21Matrix &operator=(const S21Matrix &other);
         S21Matrix &operator=(S21Matrix && other) noexcept;
@@ -58,6 +58,7 @@ namespace s21{
         // todo num on matrix
         [[nodiscard]]S21Matrix operator*(const S21Matrix &other);
         [[nodiscard]]S21Matrix operator*(const double number) const;
+        friend S21Matrix operator*(const double number, const S21Matrix& matrix);
 
         [[nodiscard]]bool operator==(const S21Matrix &other) const;
         S21Matrix &operator+=(const S21Matrix &other);
@@ -121,7 +122,7 @@ namespace s21{
 
         [[nodiscard]] S21Matrix CalculateInverseMatrix(const S21Matrix &matrix, double det) const;
 
-        S21Matrix GetInverseOfFirstOrderMatrix();
+        S21Matrix GetInverseOfFirstOrderMatrix() const;
 
         static void CheckEmptyMatrix(const S21Matrix& other);
         void CheckSquareMatrix() const;
