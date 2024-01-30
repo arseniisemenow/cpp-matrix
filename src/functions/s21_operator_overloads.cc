@@ -84,7 +84,7 @@ double &S21Matrix::operator()(int i, int j) {
 }
 
 S21Matrix::S21Matrix(S21Matrix &&other) noexcept {
-  rows_ = std::exchange(other.rows_, 0);
+  rows_ = std::exchange(other.rows_, 0);  // TODO move exchange to manual move
   cols_ = std::exchange(other.cols_, 0);
   matrix_ = std::exchange(other.matrix_, nullptr);
 }
@@ -92,7 +92,7 @@ S21Matrix::S21Matrix(S21Matrix &&other) noexcept {
 std::ostream &operator<<(std::ostream &stream, const S21Matrix &matrix) {
   for (int i = 0; i < matrix.rows_; ++i) {
     stream << matrix(i, 0);
-    for (int j = 0; j < matrix.cols_; ++j) {
+    for (int j = 1; j < matrix.cols_; ++j) {
       stream << " " << matrix(i, j);
     }
     stream << '\n';

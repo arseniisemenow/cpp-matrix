@@ -15,7 +15,7 @@ void S21Matrix::DestroyMatrix() {
         matrix_[i] = nullptr;
       }
     }
-    delete[] matrix_;  // TODO Maybe leaks
+    delete[] matrix_;
     matrix_ = nullptr;
   }
 }

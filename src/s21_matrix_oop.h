@@ -10,18 +10,15 @@ namespace s21{
 
     public:
         S21Matrix();
-
-        S21Matrix(int rows, int cols);  // TODO should I use explicit here?
+        explicit S21Matrix(int rows, int cols);
         S21Matrix(const S21Matrix &other);
         S21Matrix(S21Matrix &&other) noexcept;
-
         ~S21Matrix();
 
         void SetRows(int number);
 
         void SetCols(int number);
 
-        // todo name
         void SetElementInMatrix(int number, int row_index, int col_index);
 
         [[nodiscard]] int GetRows() const noexcept;
@@ -45,7 +42,7 @@ namespace s21{
 
         [[nodiscard]] S21Matrix CalcComplements() const;
         // todo const
-        S21Matrix InverseMatrix() const;
+        [[nodiscard]] S21Matrix InverseMatrix() const;
 
         S21Matrix &operator=(const S21Matrix &other);
         S21Matrix &operator=(S21Matrix && other) noexcept;
@@ -122,7 +119,7 @@ namespace s21{
 
         [[nodiscard]] S21Matrix CalculateInverseMatrix(const S21Matrix &matrix, double det) const;
 
-        S21Matrix GetInverseOfFirstOrderMatrix() const;
+        [[nodiscard]] S21Matrix GetInverseOfFirstOrderMatrix() const;
 
         static void CheckEmptyMatrix(const S21Matrix& other);
         void CheckSquareMatrix() const;
@@ -132,7 +129,6 @@ namespace s21{
         void CheckRowsAndColsUnderflow(int row_index, int col_index) const;
         void CheckRowAndColsFlows(int row_index, int col_index) const;
         static void CheckRowAndColsForConstructor(int rows, int cols);
-
 
         static void CheckSingularMatrix(double det);
 

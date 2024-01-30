@@ -44,15 +44,15 @@ void S21Matrix::PartialPivotingInGaussElimination(S21Matrix &temp,
 
 void S21Matrix::PerformGaussElimination(S21Matrix &temp,
                                         int pivot_index) const {
-  for (int rowIndex = pivot_index + 1; rowIndex < rows_; ++rowIndex) {
-    double rowNumber = temp(rowIndex, pivot_index);
-    double pivotNumber = temp(pivot_index, pivot_index);
-    double term = rowNumber / pivotNumber;
+  for (int row_index = pivot_index + 1; row_index < rows_; ++row_index) {
+    double row_number = temp(row_index, pivot_index);
+    double pivot_number = temp(pivot_index, pivot_index);
+    double term = row_number / pivot_number;
 
-    for (int colIndex = 0; colIndex < rows_; colIndex++) {
-      double colNumber = temp(pivot_index, colIndex);
-      double newColNumber = term * colNumber;
-      temp(rowIndex, colIndex) -= newColNumber;
+    for (int col_index = 0; col_index < rows_; col_index++) {
+      double col_number = temp(pivot_index, col_index);
+      double gauss_term = term * col_number;
+      temp(row_index, col_index) -= gauss_term;
     }
   }
 }
@@ -69,9 +69,9 @@ int S21Matrix::GaussElimination(S21Matrix &temp) const {
 void S21Matrix::SwapRows(S21Matrix &temp, int row_index_1,
                          int row_index_2) const {
   for (int col_index = 0; col_index < temp.rows_; col_index++) {
-    double &secondNumber = temp(row_index_2, col_index);
-    double &firstNumber = temp(row_index_1, col_index);
-    std::swap(firstNumber, secondNumber);
+    double &first_number = temp(row_index_1, col_index);
+    double &second_number = temp(row_index_2, col_index);
+    std::swap(first_number, second_number);
   }
 }
 
