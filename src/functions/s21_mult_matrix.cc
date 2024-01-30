@@ -8,20 +8,25 @@ void S21Matrix::MulMatrix(const S21Matrix &other) {
 
 void S21Matrix::PerformMatricesMulOperation(const S21Matrix &other) {
   S21Matrix temp = S21Matrix(rows_, other.cols_);
-
-  for (int row_index = 0; row_index < rows_; ++row_index) {
-    for (int other_col_index = 0; other_col_index < other.cols_;
-         ++other_col_index) {
-      temp.matrix_[row_index][other_col_index] = 0;
-      for (int col_index = 0; col_index < cols_; ++col_index) {
+  int row_index = 0;
+  for (; row_index < rows_;) {
+    int other_col_index = 0;
+    for (; other_col_index < other.cols_;) {
+      temp(row_index, other_col_index) = 0;
+      int col_index = 0;
+      for (; col_index < cols_;) {
         double first_number = matrix_[row_index][col_index];
-        double second_number = other.matrix_[col_index][other_col_index];
+        double second_number = other(col_index, other_col_index);
+        double result_number = first_number * second_number;
 
-        temp.matrix_[row_index][other_col_index] +=
-            first_number * second_number;
+        temp(row_index, other_col_index) += result_number;
+        ++col_index;
       }
+      ++other_col_index;
     }
+    ++row_index;
   }
   *this = temp;
+  std::cerr << "matrix: " << temp;
 }
 }  // namespace s21

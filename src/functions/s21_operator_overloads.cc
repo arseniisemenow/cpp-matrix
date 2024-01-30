@@ -89,4 +89,15 @@ S21Matrix::S21Matrix(S21Matrix &&other) noexcept {
   matrix_ = std::exchange(other.matrix_, nullptr);
 }
 
+std::ostream &operator<<(std::ostream &stream, const S21Matrix &matrix) {
+  for (int i = 0; i < matrix.rows_; ++i) {
+    stream << matrix(i, 0);
+    for (int j = 0; j < matrix.cols_; ++j) {
+      stream << " " << matrix(i, j);
+    }
+    stream << '\n';
+  }
+  return stream;
+}
+
 }  // namespace s21

@@ -16,9 +16,9 @@ void S21Matrix::CalculateAndAssignSumAndSubValue(const S21Matrix &other,
   double value = 0;
 
   if (operation_type == OperationType::kAddition) {
-    value = matrix_[row_index][col_index] + other.matrix_[row_index][col_index];
+    value = matrix_[row_index][col_index] + other(row_index, col_index);
   } else if (operation_type == OperationType::kSubtraction) {
-    value = matrix_[row_index][col_index] - other.matrix_[row_index][col_index];
+    value = matrix_[row_index][col_index] - other(row_index, col_index);
   }
 
   matrix_[row_index][col_index] = value;

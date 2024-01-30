@@ -9,8 +9,8 @@ S21Matrix S21Matrix::CalculateInverseMatrix(const S21Matrix &matrix,
   for (int i = 0; i < rows_; ++i) {
     for (int j = 0; j < cols_; ++j) {
       double inverse_term = 1.0 / det;
-      double number = matrix.matrix_[i][j];
-      result.matrix_[i][j] = inverse_term * number;
+      double number = matrix(i, j);
+      result(i, j) = inverse_term * number;
     }
   }
 
@@ -37,7 +37,7 @@ S21Matrix S21Matrix::InverseMatrix() {
 
 S21Matrix S21Matrix::GetInverseOfFirstOrderMatrix() {
   S21Matrix result(1, 1);
-  result.matrix_[0][0] = 1 / matrix_[0][0];
+  result(0, 0) = 1 / matrix_[0][0];
   return result;
 }
 }  // namespace s21

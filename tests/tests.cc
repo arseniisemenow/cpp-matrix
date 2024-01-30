@@ -69,14 +69,24 @@ TEST_F(S21MatrixTest, ConstructorTest) {
   ASSERT_TRUE(matrix.EqMatrix(otherMoved));
 }
 
-TEST_F(S21MatrixTest, EqMatrixTest) {
+TEST_F(S21MatrixTest, EqMatrixTest1) {
+  ASSERT_TRUE(matrix2x2.EqMatrix(matrix2x2));
+}
+
+TEST_F(S21MatrixTest, EqMatrixTest2) {
+  ASSERT_FALSE(matrix3x3.EqMatrix(matrix2x2));
+}
+
+TEST_F(S21MatrixTest, EqMatrixTest3) {
   ASSERT_TRUE(matrix2x2.EqMatrix(matrix2x2));
   ASSERT_FALSE(matrix3x3.EqMatrix(matrix2x2));
   S21Matrix matrix{3, 3};
   ASSERT_FALSE(matrix3x3.EqMatrix(matrix));
-  S21Matrix emptyMatrix;
-  ASSERT_THROW([[maybe_unused]] bool value = emptyMatrix.EqMatrix(matrix1x1),
-               std::invalid_argument);
+}
+
+TEST_F(S21MatrixTest, EqMatrixTest4) {
+  S21Matrix matrix{3, 3};
+  ASSERT_FALSE(matrix3x3.EqMatrix(matrix));
 }
 TEST_F(S21MatrixTest, SumMatrixTest) {
   matrix3x3.SumMatrix(matrix3x3);

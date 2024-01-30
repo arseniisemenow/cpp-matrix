@@ -2,7 +2,7 @@
 
 namespace s21 {
 
-S21Matrix::S21Matrix() {}
+S21Matrix::S21Matrix() = default;
 
 S21Matrix::S21Matrix(int rows, int cols) : rows_(rows), cols_(cols) {
   CheckRowAndColsForConstructor(rows_, cols_);

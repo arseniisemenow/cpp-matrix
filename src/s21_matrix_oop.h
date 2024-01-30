@@ -70,8 +70,7 @@ namespace s21{
         [[nodiscard]]double operator()(int i, int j) const;
         double &operator()(int i, int j);
 
-        // todo operator >> <<
-        void PrintMatrix() const;
+        friend std::ostream &operator<<(std::ostream &stream, const S21Matrix& other);
 
     private:
         int rows_{};
@@ -106,7 +105,6 @@ namespace s21{
 
         void PerformGaussElimination(S21Matrix&temp, int pivot_index) const;
 
-        // todo Camel
         void PartialPivotingInGaussElimination(S21Matrix& temp, int pivot_index, int *p_swap_count) const;
 
         [[nodiscard]] double GetSignBySwapCount(int swapCount) const;
@@ -133,6 +131,7 @@ namespace s21{
         void CheckRowsAndColsUnderflow(int row_index, int col_index) const;
         void CheckRowAndColsFlows(int row_index, int col_index) const;
         static void CheckRowAndColsForConstructor(int rows, int cols);
+
 
         static void CheckSingularMatrix(double det);
 

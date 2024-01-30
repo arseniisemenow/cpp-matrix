@@ -14,7 +14,7 @@ double S21Matrix::Determinant() const {
   double temp_result = 1;
 
   for (int pivot_index = 0; pivot_index < rows_; ++pivot_index) {
-    temp_result *= temp.matrix_[pivot_index][pivot_index];
+    temp_result *= temp(pivot_index, pivot_index);
   }
 
   double sign = GetSignBySwapCount(swap_count);
@@ -33,8 +33,8 @@ void S21Matrix::PartialPivotingInGaussElimination(S21Matrix &temp,
                                                   int pivot_index,
                                                   int *p_swap_count) const {
   for (int row_index = pivot_index + 1; row_index < temp.rows_; row_index++) {
-    double pivot_number = temp.matrix_[pivot_index][pivot_index];
-    double row_number = temp.matrix_[row_index][pivot_index];
+    double pivot_number = temp(pivot_index, pivot_index);
+    double row_number = temp(row_index, pivot_index);
 
     if (std::fabs(pivot_number) < std::fabs(row_number)) {
       SwapRows(temp, pivot_index, row_index);
@@ -46,13 +46,14 @@ void S21Matrix::PartialPivotingInGaussElimination(S21Matrix &temp,
 void S21Matrix::PerformGaussElimination(S21Matrix &temp,
                                         int pivot_index) const {
   for (int rowIndex = pivot_index + 1; rowIndex < rows_; ++rowIndex) {
-    double rowNumber = temp.matrix_[rowIndex][pivot_index];
-    double pivotNumber = temp.matrix_[pivot_index][pivot_index];
+    double rowNumber = temp(rowIndex, pivot_index);
+    double pivotNumber = temp(pivot_index, pivot_index);
     double term = rowNumber / pivotNumber;
+
     for (int colIndex = 0; colIndex < rows_; colIndex++) {
-      double colNumber = temp.matrix_[pivot_index][colIndex];
+      double colNumber = temp(pivot_index, colIndex);
       double newColNumber = term * colNumber;
-      temp.matrix_[rowIndex][colIndex] -= newColNumber;
+      temp(rowIndex, colIndex) -= newColNumber;
     }
   }
 }
@@ -69,8 +70,8 @@ int S21Matrix::GaussElimination(S21Matrix &temp) const {
 void S21Matrix::SwapRows(S21Matrix &temp, int row_index_1,
                          int row_index_2) const {
   for (int col_index = 0; col_index < temp.rows_; col_index++) {
-    double &secondNumber = temp.matrix_[row_index_2][col_index];
-    double &firstNumber = temp.matrix_[row_index_1][col_index];
+    double &secondNumber = temp(row_index_2, col_index);
+    double &firstNumber = temp(row_index_1, col_index);
     std::swap(firstNumber, secondNumber);
   }
 }
