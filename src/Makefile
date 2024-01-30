@@ -71,15 +71,15 @@ endif
 	@make clean_lcov
 
 cppcheck:
-	@find .. -type file -name "*.cc" -exec cppcheck --enable=all --suppress=missingIncludeSystem {} \;
-	@find .. -type file -name "*.c" -exec cppcheck --enable=all --suppress=missingIncludeSystem {} \;
-	@find .. -type file -name "*.h" -exec cppcheck --enable=all --suppress=missingIncludeSystem {} \;
+	@find .. -type ${CLEAN_FILE_NAME} -name "*.cc" -exec cppcheck --enable=all --suppress=missingIncludeSystem {} \;
+	@find .. -type ${CLEAN_FILE_NAME} -name "*.c" -exec cppcheck --enable=all --suppress=missingIncludeSystem {} \;
+	@find .. -type ${CLEAN_FILE_NAME} -name "*.h" -exec cppcheck --enable=all --suppress=missingIncludeSystem {} \;
 	@echo "Cppcheck is finished"
 style:
-	@find .. -type file -name "*.cc" -exec clang-format -i -style=Google {} \;
+	@find .. -type ${CLEAN_FILE_NAME} -name "*.cc" -exec clang-format -i -style=Google {} \;
 	@echo "Clang format style apply is finished"
 style_check:
-	@find .. -type file -name "*.cc" -exec clang-format -n -style=Google {} \;
+	@find .. -type ${CLEAN_FILE_NAME} -name "*.cc" -exec clang-format -n -style=Google {} \;
 	@echo "Clang format style check is finished"
 
 install_brew:
@@ -91,22 +91,30 @@ install_brew_goinfre:
 clean: clean_project clean_static_lib clean_log clean_exec clean_obj clean_gcov clean_lcov clean_lcov_report
 	@echo "Clean finished"
 
+
+CLEAN_FILE_NAME :=f
+ifeq ($(OS), Linux)
+	CLEAN_FILE_NAME :=f
+else
+	CLEAN_FILE_NAME :=f#ile #What the heeeellll
+endif
+
 clean_project:
 
 clean_after_building:
 	@rm -rf ${OBJ_DIR}
 clean_static_lib:
-	@find . -type file -name "*.a" -exec rm {} \;
+	@find . -type ${CLEAN_FILE_NAME} -name "*.a" -exec rm {} \;
 clean_log:
-	@find . -type file -name "*.log" -exec rm {} \;
+	@find . -type ${CLEAN_FILE_NAME} -name "*.log" -exec rm {} \;
 clean_exec:
-	@find . -type file -name "*.out" -exec rm {} \;
+	@find . -type ${CLEAN_FILE_NAME} -name "*.out" -exec rm {} \;
 clean_obj:
-	@find . -type file -name "*.o" -exec rm {} \;
+	@find . -type ${CLEAN_FILE_NAME} -name "*.o" -exec rm {} \;
 clean_gcov:
-	@find . -type file -name "*.gcda" -exec rm {} \;
-	@find . -type file -name "*.gcno" -exec rm {} \;
+	@find . -type ${CLEAN_FILE_NAME} -name "*.gcda" -exec rm {} \;
+	@find . -type ${CLEAN_FILE_NAME} -name "*.gcno" -exec rm {} \;
 clean_lcov:
-	@find . -type file -name "*.info" -exec rm {} \;
+	@find . -type ${CLEAN_FILE_NAME} -name "*.info" -exec rm {} \;
 clean_lcov_report:
 	@rm -rf report
