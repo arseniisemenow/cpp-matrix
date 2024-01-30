@@ -49,6 +49,14 @@ else
 endif
 	./${TEST_OUT}
 
+test_valgrind:
+ifeq ($(OS), Linux)
+	$(CXX) $(CXXFLAGS) $(TEST_SOURCES) $(LIB_STATIC) ${CHECK_FLAGS} --gcov -o ${TEST_OUT}
+else
+	$(CXX) $(CXXFLAGS) $(TEST_SOURCES) $(LIB_STATIC) ${CHECK_FLAGS}  -o ${TEST_OUT}
+endif
+	valgrind --log-file=valgrind.log ./${TEST_OUT}
+
 gcov_report:
 ifeq ($(OS), Linux)
 	$(CXX) $(TEST_SOURCES) $(CXXFLAGS) $(CXXCOV) $(FUNC_SRCS) -o ./${GCOV_OUT} -lgtest
