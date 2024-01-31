@@ -8,9 +8,13 @@ namespace s21 {
 class S21Matrix {
  public:
   S21Matrix();
+
   explicit S21Matrix(int rows, int cols);
+
   S21Matrix(const S21Matrix &other);
+
   S21Matrix(S21Matrix &&other) noexcept;
+
   ~S21Matrix();
 
   void SetRows(int number);
@@ -33,6 +37,7 @@ class S21Matrix {
   [[nodiscard]] bool EqMatrix(const S21Matrix &other) const;
 
   void MulNumber(const double number);
+
   void MulMatrix(const S21Matrix &other);
 
   [[nodiscard]] double Determinant() const;
@@ -40,9 +45,11 @@ class S21Matrix {
   [[nodiscard]] S21Matrix Transpose() const;
 
   [[nodiscard]] S21Matrix CalcComplements() const;
+
   [[nodiscard]] S21Matrix InverseMatrix() const;
 
   S21Matrix &operator=(const S21Matrix &other);
+
   S21Matrix &operator=(S21Matrix &&other) noexcept;
 
   S21Matrix operator+(const S21Matrix &other);
@@ -50,18 +57,23 @@ class S21Matrix {
   S21Matrix operator-(const S21Matrix &other);
 
   [[nodiscard]] S21Matrix operator*(const S21Matrix &other);
+
   [[nodiscard]] S21Matrix operator*(const double number) const;
+
   friend S21Matrix operator*(const double number, const S21Matrix &matrix);
 
   [[nodiscard]] bool operator==(const S21Matrix &other) const;
+
   S21Matrix &operator+=(const S21Matrix &other);
 
   S21Matrix &operator-=(const S21Matrix &other);
 
   S21Matrix &operator*=(const S21Matrix &other);
+
   S21Matrix &operator*=(const double number);
 
   [[nodiscard]] double operator()(int i, int j) const;
+
   double &operator()(int i, int j);
 
   friend std::ostream &operator<<(std::ostream &stream, const S21Matrix &other);
@@ -93,6 +105,7 @@ class S21Matrix {
                                         OperationType operation_type);
 
   void PerformMatrixMulOperation(const double number);
+
   [[nodiscard]] bool PerformComparison(const S21Matrix &other) const;
 
   void PerformMatricesMulOperation(const S21Matrix &other);
@@ -123,17 +136,25 @@ class S21Matrix {
   [[nodiscard]] S21Matrix GetInverseOfFirstOrderMatrix() const;
 
   static void CheckEmptyMatrix(const S21Matrix &other);
+
   void CheckSquareMatrix() const;
+
   void CheckMultiplicationMatrices(const S21Matrix &other) const;
+
   void CheckMatricesSizeIdentity(const S21Matrix &other) const;
+
   void CheckRowsAndColsOverflow(int row_index, int col_index) const;
+
   void CheckRowsAndColsUnderflow(int row_index, int col_index) const;
+
   void CheckRowAndColsFlows(int row_index, int col_index) const;
+
   static void CheckRowAndColsForConstructor(int rows, int cols);
 
   static void CheckSingularMatrix(double det);
 
   [[nodiscard]] bool IsFirstOrderMatrix() const;
+
   [[nodiscard]] static bool IsZero(double value);
 };
 }  // namespace s21
