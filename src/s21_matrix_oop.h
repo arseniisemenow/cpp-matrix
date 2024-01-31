@@ -1,6 +1,7 @@
 #ifndef CPP1_S21_MATRIXPLUS_1_SRC_S21_MATRIX_OOP_H_
 #define CPP1_S21_MATRIXPLUS_1_SRC_S21_MATRIX_OOP_H_
 
+#include <ostream>
 #include <utility>
 
 namespace s21 {
