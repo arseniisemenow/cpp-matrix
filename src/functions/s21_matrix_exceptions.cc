@@ -1,3 +1,5 @@
+#include <iostream>
+
 #include "../s21_matrix_oop.h"
 
 namespace s21 {

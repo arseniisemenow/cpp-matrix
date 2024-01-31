@@ -350,6 +350,12 @@ TEST_F(S21MatrixTest, OperatorEqualsTest) {
   ASSERT_FALSE(matrix2x3 == matrix3x3);
 }
 
+TEST_F(S21MatrixTest, OperatorAssignmentTest0) {
+  S21Matrix matrix = matrix3x3;
+  matrix = std::move(matrix);
+  ASSERT_EQ(matrix, matrix3x3);
+}
+
 TEST_F(S21MatrixTest, OperatorAssignmentTest1) {
   S21Matrix matrix{};
   matrix = matrix3x3;
@@ -380,6 +386,9 @@ TEST_F(S21MatrixTest, OperatorAssignmentTest3) {
 
   matrix3x3 = other;
   ASSERT_EQ(matrix3x3, other);
+}
+TEST_F(S21MatrixTest, OperatorStream) {
+  std::cerr << "matrix3x3: " << matrix3x3;
 }
 
 TEST_F(S21MatrixTest, OperatorPlusEqualsTest) {

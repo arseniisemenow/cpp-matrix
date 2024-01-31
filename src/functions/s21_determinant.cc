@@ -1,3 +1,5 @@
+#include <cmath>
+
 #include "../s21_matrix_oop.h"
 
 namespace s21 {
@@ -75,9 +77,9 @@ void S21Matrix::SwapRows(S21Matrix &temp, int row_index_1,
   }
 }
 
-double S21Matrix::GetSignBySwapCount(int swapCount) const {
+double S21Matrix::GetSignBySwapCount(int swap_count) const {
   double result = 1.0;
-  bool is_odd_number = swapCount % 2 == 1;
+  bool is_odd_number = swap_count % 2 == 1;
   if (is_odd_number) {
     result = -1.0;
   }

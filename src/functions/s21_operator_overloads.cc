@@ -1,3 +1,5 @@
+#include <iostream>
+
 #include "../s21_matrix_oop.h"
 
 namespace s21 {
@@ -19,9 +21,13 @@ S21Matrix &S21Matrix::operator=(S21Matrix &&other) noexcept {
     return *this;
   }
   DestroyMatrix();
-  rows_ = std::exchange(other.rows_, 0);
-  cols_ = std::exchange(other.cols_, 0);
-  matrix_ = std::exchange(other.matrix_, nullptr);
+  rows_ = other.rows_;
+  cols_ = other.cols_;
+  matrix_ = other.matrix_;
+
+  other.rows_ = 0;
+  other.cols_ = 0;
+  other.matrix_ = nullptr;
   return *this;
 }
 
@@ -84,9 +90,13 @@ double &S21Matrix::operator()(int i, int j) {
 }
 
 S21Matrix::S21Matrix(S21Matrix &&other) noexcept {
-  rows_ = std::exchange(other.rows_, 0);  // TODO move exchange to manual move
-  cols_ = std::exchange(other.cols_, 0);
-  matrix_ = std::exchange(other.matrix_, nullptr);
+  rows_ = other.rows_;
+  cols_ = other.cols_;
+  matrix_ = other.matrix_;
+
+  other.rows_ = 0;
+  other.cols_ = 0;
+  other.matrix_ = nullptr;
 }
 
 std::ostream &operator<<(std::ostream &stream, const S21Matrix &matrix) {

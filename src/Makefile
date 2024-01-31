@@ -19,7 +19,6 @@ else
 	CHECK_FLAGS=-lgtest -lgtest_main -lm -lpthread -fprofile-arcs -ftest-coverage -lstdc++
 endif
 
-
 FUNC_SRCS := $(wildcard $(FUNC_DIR)/*.cc)
 
 FUNC_OBJS_WITHOUT_OBJECT_DIRNAME = $(FUNC_SRCS:.c=.o)
@@ -57,6 +56,13 @@ else
 endif
 	valgrind --log-file=valgrind.log ./${TEST_OUT}
 
+OPEN_COMMAND=open
+ifeq ($(OS), Linux)
+	OPEN_COMMAND=xdg-open
+else
+	OPEN_COMMAND=open
+endif
+
 gcov_report:
 ifeq ($(OS), Linux)
 	$(CXX) $(TEST_SOURCES) $(CXXFLAGS) $(CXXCOV) $(FUNC_SRCS) -o ./${GCOV_OUT} -lgtest
@@ -64,9 +70,9 @@ else
 	$(CXX) $(TEST_SOURCES) $(CXXFLAGS) $(CXXCOV) $(FUNC_SRCS) -o ./${GCOV_OUT} -lgtest
 endif
 	./${GCOV_OUT}
-	lcov -t "gcov_report" --ignore-errors mismatch -c -d . -o report.info
+	lcov -t "gcov_report" --ignore-errors mismatch --no-external -c -d . -o report.info
 	genhtml report.info -o report
-	@open ./report/index.html
+	@$(OPEN_COMMAND) ./report/index.html
 	@make clean_gcov
 	@make clean_lcov
 
@@ -77,9 +83,11 @@ cppcheck:
 	@echo "Cppcheck is finished"
 style:
 	@find .. -type f -name "*.cc" -exec clang-format -i -style=Google {} \;
+	@find .. -type f -name "*.h" -exec clang-format -i -style=Google {} \;
 	@echo "Clang format style apply is finished"
 style_check:
 	@find .. -type f -name "*.cc" -exec clang-format -n -style=Google {} \;
+	@find .. -type f -name "*.h" -exec clang-format -n -style=Google {} \;
 	@echo "Clang format style check is finished"
 
 install_brew:
