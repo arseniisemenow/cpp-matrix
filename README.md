@@ -2,60 +2,7 @@
 
 Implementation of the s21_matrix_oop.h library.
 
-The russian version of the task can be found in the repository.
-
-
-## Contents
-
-1. [Chapter I](#chapter-i) \
-    1.1. [Introduction](#introduction)
-2. [Chapter II](#chapter-ii) \
-    2.1. [Information](#information)
-3. [Chapter III](#chapter-iii) \
-    3.1. [Part 1](#part-1-implementation-of-the-s21_matrix_ooph-library-functions)
-
-
-## Chapter I
-
-![s21_matrix](misc/images/s21_matrix.png)
-
-Planet Earth, 20 September 2000.
-
-*"Our CEO has such a wonderful country house! It has everything to make ideas come true. A veranda overlooking a huge swimming pool on the lawn completes the picture of a passionate and intelligent person."*
-
-*"Yes, I agree! I'm so glad we were invited here. To tell you the truth, I feel a bit déjà vu, like I've seen this place before."*
-
-*"Oh, that's weird. Believe me, you won't find a house like this anywhere else in the country!* \
-*So, what were we talking about? Oh, right! For several days now, in this vibrant place, id Software's main technical team has been discussing a new technology we want to introduce in our upcoming game Doom 3. And what creates the most sense of reality in an image? The play of light and shadow, of course, which currently takes too long to compute and puts a strain on the CPU.
-John is known for his technological and algorithmic ideas and tricks that have led to crazy breakthroughs in speed and code optimisation."*
-
-*"Yeah, feels like I've heard that one before."*
-
-*"Really? I guess Catharina got to you first.* \
-*Anyway, on to the interesting part. John Carmack, our Chief Technology Officer and the founder of the company, presented a theoretical development that would allow shadows to be cast on a scene after it has gone through the entire graphics pipeline, using a depth buffer and a stencil buffer."*
-
-*"Oh, that's really... fascinating."*
-
-*"We invited you to this party for a reason. The whole team is working on a new way of creating shadows in a scene, and your department in particular has been asked by John to implement a very fast and optimised library of all sorts of matrix transformations on which the entire mathematical logic of the algorithm will be based. Vectors and matrices, transpose and SRT conversions, and many other mathematical objects and operations used in computer graphics.*
-*For a correct and considered transition to the new method, we need a significant and impressive performance change, and you will be responsible for it! Please remember that all the work must be done in a modern OOP style to achieve maximum code quality!"*
-
-*"Well, I would be… um… happy to help you."*
-
-*"Perfect! Who knows, maybe..."*
-
-## Introduction
-
-In this project, you will implement the matrix library that you already know from the **s21_matrix** project, but this time you will be using the object-oriented approach (see materials). The object-oriented approach allows to implement a library for matrices as a separate class whose objects have defined operations, that can be represented both as methods and as standard operators +, -, *, etc.
-
-
-## Chapter II
-
 ## Information
-
-### C++ and C
-
-C++ is a programming language based on the C language for implementing programs using an object-oriented approach. This means that the C++ syntax rules are derived directly from C, so most C code can be copied into C++ programs and successfully compiled.
-For the most part, C++ only adds or modifies capabilities for the programmer, rather than taking away anything, so it's easier to talk about the differences (see Resources) than the similarities when it comes to C++.
 
 ### An example of a matrix class in C++
 ```cpp
@@ -156,6 +103,3 @@ And you also need to overload the following operators, partly corresponding to t
 - Overload the operators according to the table in the chapter [above](#matrix-operations);
 - Prepare full coverage of library functions code with unit-tests using the GTest library;
 - Provide a Makefile for building the library and tests (with targets all, clean, test, s21_matrix_oop.a).
-
-
-💡 [Tap here](https://forms.yandex.ru/cloud/64181a0deb614624afcee6b5/) **to leave your feedback on the project**. Product Team really tries to make your educational experience better.
