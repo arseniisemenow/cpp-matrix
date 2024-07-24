@@ -88,9 +88,8 @@ And you also need to overload the following operators, partly corresponding to t
 | `(int i, int j)`  | Indexation by matrix elements (row, column). | Index is outside the matrix. |
 
 
-## Chapter III
 
-## Part 1. Implementation of the s21_matrix_oop.h library functions
+## Implementation of the s21_matrix_oop.h library functions
 
 - The program must be developed in C++ language of C++17 standard using gcc compiler;
 - The program code must be located in the src folder;
